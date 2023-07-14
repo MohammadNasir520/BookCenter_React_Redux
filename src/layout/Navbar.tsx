@@ -51,7 +51,7 @@ const Navbar = () => {
         </NavLink>
       </li>
 
-      <li>
+      {/* <li>
         <NavLink
           onClick={() => setMenuOpen(false)}
           to="/dashboard"
@@ -69,12 +69,12 @@ const Navbar = () => {
         >
           DashBoard
         </NavLink>
-      </li>
+      </li> */}
 
       <li>
         <NavLink
           onClick={() => setMenuOpen(false)}
-          to={"/about"}
+          to={"/addbook"}
           className={({ isActive }) =>
             ` ${
               isActive
@@ -87,7 +87,7 @@ const Navbar = () => {
             } ${NavFont}`
           }
         >
-          About
+          AddBook
         </NavLink>
       </li>
     </>
@@ -140,7 +140,7 @@ const Navbar = () => {
   );
 
   return (
-    <div>
+    <div className="sticky inset-0 z-50 shadow-sm">
       <div className="bg-blue-500">
         <nav className="relative px-4 py-4 flex justify-between items-center  bg-white">
           <div className="flex space-x-5">
