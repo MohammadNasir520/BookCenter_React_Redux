@@ -63,6 +63,9 @@ const BookCard = () => {
           <p className="block font-sans text-base font-normal leading-relaxed text-inherit antialiased">
             January 10
           </p>
+
+          {/* details button */}
+
           <button
             className="flex select-none items-center gap-2 rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="button"
