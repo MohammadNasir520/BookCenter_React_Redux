@@ -1,9 +1,11 @@
 import BookCard from "../../components/BookCard";
+import SearchAndFilter from "../../components/SearchAndFilter";
 
 const AllBooks = () => {
   const books = [10, 12, 2123, 1234, 1234];
   return (
     <div>
+      <SearchAndFilter></SearchAndFilter>
       <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3  mx-5 place-items-center mt-3">
         {books.map((book) => (
           <BookCard></BookCard>
