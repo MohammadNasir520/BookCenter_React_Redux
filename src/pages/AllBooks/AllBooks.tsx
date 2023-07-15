@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import BookCard from "../../components/BookCard";
 import SearchAndFilter from "../../components/SearchAndFilter";
 
@@ -5,6 +6,14 @@ const AllBooks = () => {
   const books = [10, 12, 2123, 1234, 1234];
   return (
     <div>
+      <Link to={"/addbook"}>
+        <button
+          className="middle absolute right-3 none center rounded-lg bg-green-800 py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-500/20 transition-all hover:shadow-lg hover:shadow-gray-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          data-ripple-light="true"
+        >
+          Add Book
+        </button>
+      </Link>
       <SearchAndFilter></SearchAndFilter>
       <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3  mx-5 place-items-center mt-3">
         {books.map((book) => (
