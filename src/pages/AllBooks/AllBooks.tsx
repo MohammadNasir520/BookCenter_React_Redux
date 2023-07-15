@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import BookCard from "../../components/BookCard";
 import SearchAndFilter from "../../components/SearchAndFilter";
+import { useAppDispatch } from "../../Redux/hook";
+import { useGetBooksQuery } from "../../Redux/api/apiSlice";
 
 const AllBooks = () => {
   const books = [10, 12, 2123, 1234, 1234];
+  const { data, error, isLoading } = useGetBooksQuery(null);
+  console.log(data, error, isLoading);
   return (
     <div>
       <Link to={"/addbook"}>
