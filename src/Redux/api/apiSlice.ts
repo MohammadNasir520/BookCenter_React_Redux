@@ -11,7 +11,7 @@ export const api = createApi({
     }),
     postBookComment: builder.mutation({
       query: ({ id, data }) => ({
-        url: `/books/${id}`,
+        url: `/reviews/create-review`,
         method: "POST",
         body: data,
       }),
