@@ -1,10 +1,18 @@
+import { useParams } from "react-router-dom";
+import { useGetSingleBookQuery } from "../../Redux/api/apiSlice";
+
 const BookDetailsCard = () => {
+  const { id } = useParams();
+  const { data, error, isLoading } = useGetSingleBookQuery(id);
+  // const book = data.data;
+  // const { title, author, genre, image, publicationDate, _id } =book
+  console.log(data?.data?.title, error, isLoading);
   return (
-    <div className="w-full flex justify-center mt-6 ">
+    <div className="w-full lg:h-[400px] flex justify-center mt-6 ">
       <div className="relative flex w-full max-w-[48rem] flex-row rounded-sm bg-white bg-clip-border text-gray-700 shadow-md">
         <div className="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-sm rounded-r-none bg-white bg-clip-border text-gray-700">
           <img
-            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1471&amp;q=80"
+            src={data?.data?.image}
             alt="image"
             className="h-full w-full object-cover"
           />
@@ -16,7 +24,7 @@ const BookDetailsCard = () => {
 
           {/* book name */}
           <h4 className="mb-2 block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-            Lyft launching cross-platform service this week
+            {data?.data?.title}
           </h4>
 
           {/* author  */}
@@ -37,7 +45,7 @@ const BookDetailsCard = () => {
             </svg>
 
             <h3 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-              Author
+              {data?.data?.author}
             </h3>
           </div>
 
@@ -58,7 +66,7 @@ const BookDetailsCard = () => {
               />
             </svg>
             <h3 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-              Genre
+              {data?.data?.genre}
             </h3>
           </div>
           {/*publication date*/}
@@ -79,7 +87,7 @@ const BookDetailsCard = () => {
             </svg>
 
             <h3 className="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-              DAte
+              {data?.data?.publicationDate}
             </h3>
           </div>
           <p className="mb-8 block font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
@@ -93,7 +101,7 @@ const BookDetailsCard = () => {
               className="flex select-none items-center gap-2 rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
               type="button"
             >
-              Learn More
+              + wishList
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

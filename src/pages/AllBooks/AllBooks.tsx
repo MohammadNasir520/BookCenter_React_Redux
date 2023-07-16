@@ -3,9 +3,9 @@ import BookCard from "../../components/BookCard";
 import SearchAndFilter from "../../components/SearchAndFilter";
 import { useAppDispatch } from "../../Redux/hook";
 import { useGetBooksQuery } from "../../Redux/api/apiSlice";
+import { IBook } from "../../globalInterfaces/book.interface";
 
 const AllBooks = () => {
-  const books = [10, 12, 2123, 1234, 1234];
   const { data, error, isLoading } = useGetBooksQuery(null);
   console.log(data, error, isLoading);
   return (
@@ -20,8 +20,8 @@ const AllBooks = () => {
       </Link>
       <SearchAndFilter></SearchAndFilter>
       <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3  mx-5 place-items-center mt-3">
-        {books.map((book) => (
-          <BookCard></BookCard>
+        {data?.data?.map((book: IBook) => (
+          <BookCard key={book._id} book={book}></BookCard>
         ))}
       </div>
     </div>
