@@ -9,8 +9,11 @@ export const api = createApi({
     getSingleBook: builder.query({
       query: (id) => `/books/${id}`,
     }),
-    postBookComment: builder.mutation({
-      query: ({ id, data }) => ({
+    getSingleReview: builder.query({
+      query: (id) => `/reviews/${id}`,
+    }),
+    postBookReview: builder.mutation({
+      query: ({ data }) => ({
         url: `/reviews/create-review`,
         method: "POST",
         body: data,
@@ -22,5 +25,6 @@ export const api = createApi({
 export const {
   useGetBooksQuery,
   useGetSingleBookQuery,
-  usePostBookCommentMutation,
+  usePostBookReviewMutation,
+  useGetSingleReviewQuery,
 } = api;
