@@ -1,11 +1,12 @@
 /* eslint-disable react/prop-types */
 
 import { useParams } from "react-router-dom";
+
+import SingleReviewCard from "./SingleReviewCard";
 import {
   useGetSingleReviewQuery,
   usePostBookReviewMutation,
-} from "../../Redux/api/apiSlice";
-import SingleReviewCard from "./SingleReviewCard";
+} from "../../Redux/api/booksApi/booksApi";
 
 const ReviewsSection = () => {
   const { id } = useParams();
@@ -15,7 +16,7 @@ const ReviewsSection = () => {
 
   const [postBookComment, { isError, isSuccess, isLoading, data }] =
     usePostBookReviewMutation();
-  console.log(data);
+  console.log("post revview", data);
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const reviewText = event.target.elements.review.value;
@@ -28,7 +29,7 @@ const ReviewsSection = () => {
     };
     postBookComment(options);
   };
-
+  console.log("post revview2");
   return (
     <div className="mt-7">
       {/* create reviews */}

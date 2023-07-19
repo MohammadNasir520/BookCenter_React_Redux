@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useGetSingleBookQuery } from "../../Redux/api/apiSlice";
+import { useGetSingleBookQuery } from "../../Redux/api/booksApi/booksApi";
 
 const BookDetailsCard = () => {
   const { id } = useParams();

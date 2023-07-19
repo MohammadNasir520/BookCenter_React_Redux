@@ -1,4 +1,3 @@
-import { useParams } from "react-router-dom";
 import BookDetailsCard from "./BookDetailsCard";
 import ReviewsSection from "./ReviewsSectionCard";
 

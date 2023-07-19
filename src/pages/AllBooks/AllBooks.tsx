@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import BookCard from "../../components/BookCard";
 import SearchAndFilter from "../../components/SearchAndFilter";
-import { useAppDispatch } from "../../Redux/hook";
-import { useGetBooksQuery } from "../../Redux/api/apiSlice";
+
 import { IBook } from "../../globalInterfaces/book.interface";
+import { useGetBooksQuery } from "../../Redux/api/booksApi/booksApi";
 
 const AllBooks = () => {
   const { data, error, isLoading } = useGetBooksQuery(null);

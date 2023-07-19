@@ -1,4 +1,4 @@
-import { useGetBooksQuery } from "../../Redux/api/apiSlice";
+import { useGetBooksQuery } from "../../Redux/api/booksApi/booksApi";
 import BookCard from "../../components/BookCard";
 import { IBook } from "../../globalInterfaces/book.interface";
 import FullPageSpinner from "../../shared/FullPageSpinner";

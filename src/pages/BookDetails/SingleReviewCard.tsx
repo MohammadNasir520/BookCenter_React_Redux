@@ -2,8 +2,8 @@ interface IProps {
   review: IReview;
 }
 const SingleReviewCard = ({ review }: IProps) => {
+  console.log("review", review);
   const { name, image } = review.user;
-  console.log("single", review?.user, name);
   const fullname = name.firstName + " " + name.lastName;
   return (
     <div>
@@ -22,7 +22,7 @@ const SingleReviewCard = ({ review }: IProps) => {
                 {/* <span className="ml-2 text-xs font-normal text-gray-500">3 days ago</span> */}
               </div>
               <div className="flex-1 px-2 ml-2 text-sm font-medium leading-loose text-gray-600">
-                {/* {text} */}
+                {review?.reviewText}
               </div>
 
               {/* share and like button */}

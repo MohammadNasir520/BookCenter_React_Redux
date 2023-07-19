@@ -1,21 +1,41 @@
+import { toast } from "react-hot-toast";
+import { useSignupMutation } from "../../Redux/api/booksApi/booksApi";
+import { useState } from "react";
 const Signup = () => {
-  const handleSubmit = (event: any) => {
+  const [error, setError] = useState("");
+  const [signup, { data, isError, isLoading, isSuccess }] = useSignupMutation();
+
+  console.log(data, isError, isLoading, isSuccess);
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
     const firstName = event.target.firstName.value;
     const lastName = event.target.lastName.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
-    const user = {
-      name: {
-        firstName,
-        lastName,
-      },
-      email,
-      password,
-    };
-    console.log(user);
-  };
 
+    const options = {
+      user: {
+        name: {
+          firstName: firstName as string,
+          lastName: lastName as string,
+        },
+        email: email as string,
+        password: password as string,
+        image: "image",
+      },
+    };
+
+    const signedUp: any = await signup(options);
+    console.log("signedUp", signedUp);
+    if (signedUp?.data?.success === true) {
+      toast.success("your account has been created successfully");
+      event.target.reset();
+      setError(" ");
+    } else if (signedUp.error) {
+      setError(signedUp.error.data.message);
+    }
+  };
+  console.log(error);
   return (
     <div>
       <script
@@ -296,7 +316,7 @@ const Signup = () => {
                     </div>
                   </div>
                   <div className="flex -mx-3">
-                    <div className="w-full px-3 mb-12">
+                    <div className="w-full px-3 mb-3">
                       <label htmlFor="" className="text-xs font-semibold px-1">
                         Password
                       </label>
@@ -313,6 +333,10 @@ const Signup = () => {
                       </div>
                     </div>
                   </div>
+                  <div className="w-full flex justify-center my-3 text-lg font-sans ">
+                    <p className="text-red-600 mx-auto">{error}</p>
+                  </div>
+
                   <div className="flex -mx-3">
                     <div className="w-full px-3 mb-5">
                       <button
