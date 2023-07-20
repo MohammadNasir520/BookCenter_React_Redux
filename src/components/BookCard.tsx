@@ -12,9 +12,13 @@ const BookCard = ({ book }: IProps) => {
     <div>
       <Link to={`/bookdetails/${_id}`}>
         <div className="my-2">
-          <div className="relative flex max-w-[20rem] h-[500px] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
-            <div className="relative m-0 overflow-hidden rounded-none bg-transparent bg-clip-border text-gray-700 shadow-none">
-              <img src={image} alt="book" />
+          <div className="relative flex min-w-[350px] max-w-[20rem] h-[500px] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+            <div className="relative m-0 p-4 flex justify-center overflow-hidden rounded-none bg-transparent bg-clip-border text-gray-700 shadow-none">
+              <img
+                className=" h-full min-w-[280px] max-w-[20rem]   rounded-sm "
+                src={image}
+                alt="book"
+              />
             </div>
             <div className="p-2">
               <h4 className="block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">

@@ -1,11 +1,13 @@
 import { toast } from "react-hot-toast";
-import { useSignupMutation } from "../../Redux/api/booksApi/booksApi";
 import { useState } from "react";
+import { useSignupMutation } from "../../Redux/api/userApi/userApi";
+import { useNavigate } from "react-router-dom";
 const Signup = () => {
   const [error, setError] = useState("");
   const [signup, { data, isError, isLoading, isSuccess }] = useSignupMutation();
+  console.log(data, isLoading, isError, isSuccess);
+  const navigate = useNavigate();
 
-  console.log(data, isError, isLoading, isSuccess);
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const firstName = event.target.firstName.value;
@@ -31,6 +33,7 @@ const Signup = () => {
       toast.success("your account has been created successfully");
       event.target.reset();
       setError(" ");
+      navigate("/");
     } else if (signedUp.error) {
       setError(signedUp.error.data.message);
     }

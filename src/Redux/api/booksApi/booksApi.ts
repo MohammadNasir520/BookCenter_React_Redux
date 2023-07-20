@@ -2,6 +2,13 @@ import { api } from "../apiSlice";
 
 const booksApi = api.injectEndpoints({
   endpoints: (builder) => ({
+    addBook: builder.mutation({
+      query: ({ data }) => ({
+        url: `/books/create-book`,
+        method: "POST",
+        body: data,
+      }),
+    }),
     getBooks: builder.query({
       query: () => "/books",
     }),
@@ -18,19 +25,12 @@ const booksApi = api.injectEndpoints({
         body: data,
       }),
     }),
-    signup: builder.mutation({
-      query: ({ user }) => ({
-        url: `/auth/signup`,
-        method: "POST",
-        body: user,
-      }),
-    }),
   }),
 });
 export const {
+  useAddBookMutation,
   useGetBooksQuery,
   useGetSingleBookQuery,
   usePostBookReviewMutation,
   useGetSingleReviewQuery,
-  useSignupMutation,
 } = booksApi;

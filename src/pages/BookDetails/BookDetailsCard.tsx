@@ -9,15 +9,15 @@ const BookDetailsCard = () => {
   console.log(data?.data?.title, error, isLoading);
   return (
     <div className="w-full lg:h-[400px] flex justify-center mt-6 ">
-      <div className="relative flex w-full max-w-[48rem] flex-row rounded-sm bg-white bg-clip-border text-gray-700 shadow-md">
-        <div className="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-sm rounded-r-none bg-white bg-clip-border text-gray-700">
+      <div className="relative flex flex-col w-full justify-center max-w-[48rem] md:flex-row rounded-sm bg-white bg-clip-border text-gray-700 shadow-md">
+        <div className="relative m-0 md:w-2/5  flex justify-center shrink-0 overflow-hidden rounded-sm rounded-r-none bg-white bg-clip-border text-gray-700">
           <img
             src={data?.data?.image}
             alt="image"
-            className="h-full w-full object-cover"
+            className="h-full  object-cover"
           />
         </div>
-        <div className="p-6">
+        <div className="p-6 flex flex-col justify-center">
           {/* <h6 className="mb-4 block font-sans text-base font-semibold uppercase leading-relaxed tracking-normal text-pink-500 antialiased">
             startups
           </h6> */}
