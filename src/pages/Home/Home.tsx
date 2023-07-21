@@ -5,7 +5,7 @@ import { IBook } from "../../globalInterfaces/book.interface";
 import FullPageSpinner from "../../shared/FullPageSpinner";
 
 const Home = () => {
-  const { data, error, isLoading } = useGetBooksQuery("", {
+  const { data, error, isLoading } = useGetBooksQuery(null, {
     refetchOnMountOrArgChange: true,
     pollingInterval: 30000,
   });

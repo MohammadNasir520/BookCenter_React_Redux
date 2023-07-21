@@ -111,7 +111,7 @@ const EditBook = () => {
                       </div>
                       <div className="flex flex-col">
                         <label className="leading-loose">
-                          Publication Date
+                          Publication year
                         </label>
                         <div className="relative focus-within:text-gray-600 text-gray-400">
                           <input
@@ -123,9 +123,9 @@ const EditBook = () => {
                             }
                             defaultValue={book?.data?.publicationDate}
                             name="date"
-                            type="date"
+                            type="text"
                             className="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                            placeholder="26/02/2020"
+                            placeholder="2020"
                           />
                           <div className="absolute left-3 top-2"></div>
                         </div>

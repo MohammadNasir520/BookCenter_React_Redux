@@ -23,7 +23,19 @@ const booksApi = api.injectEndpoints({
       }),
     }),
     getBooks: builder.query({
-      query: (searchText) => `/books/?searchTerm=${searchText}`,
+      query: () => `/books`,
+    }),
+    getBooksBySearchAndFilter: builder.query({
+      query: ({ searchText, genre, publicationYear }) => {
+        let url = `/books/?searchTerm=${searchText}`;
+        if (genre) {
+          url = url + `&genre=${genre}`;
+        }
+        if (publicationYear) {
+          url = url + `&publicationDate=${publicationYear}`;
+        }
+        return url;
+      },
     }),
     getSingleBook: builder.query({
       query: (id) => `/books/${id}`,
@@ -45,6 +57,7 @@ export const {
   useDeleteBookMutation,
   useUpdateBookMutation,
   useGetBooksQuery,
+  useGetBooksBySearchAndFilterQuery,
   useGetSingleBookQuery,
   usePostBookReviewMutation,
   useGetSingleReviewQuery,

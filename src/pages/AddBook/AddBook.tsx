@@ -7,6 +7,10 @@ const AddBook = () => {
   const [addBook, { data, isLoading, isError, isSuccess, error }] =
     useAddBookMutation();
   console.log(data, isLoading, isError, isSuccess, error);
+  console.log("errror", error?.data?.errorMessages[0]?.message);
+  if (isError) {
+    toast.error(`${error?.data?.errorMessages[0]?.message}`);
+  }
   const navigate = useNavigate();
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -14,7 +18,7 @@ const AddBook = () => {
     const title = form.title.value;
     const author = form.author.value;
     const genre = form.genre.value;
-    const date = form.date.value;
+    const year = form.year.value;
     const image = form.image.files[0];
 
     uploadImage(image).then((url) => {
@@ -25,7 +29,7 @@ const AddBook = () => {
             title: title as string,
             author: author as string,
             genre: genre as string,
-            publicationDate: date as string,
+            publicationDate: year as string,
             image: url as string,
           },
         };
@@ -95,15 +99,15 @@ const AddBook = () => {
                       </div>
                       <div className="flex flex-col">
                         <label className="leading-loose">
-                          Publication Date
+                          Publication year
                         </label>
                         <div className="relative focus-within:text-gray-600 text-gray-400">
                           <input
                             required
-                            name="date"
-                            type="date"
+                            name="year"
+                            type="text"
                             className="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                            placeholder="26/02/2020"
+                            placeholder="2020"
                           />
                           <div className="absolute left-3 top-2"></div>
                         </div>
