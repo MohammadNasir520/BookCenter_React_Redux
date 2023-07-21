@@ -25,20 +25,33 @@ const AllBooks = () => {
   books?.data.forEach((book: IBook) => {
     filteredGenre.add(book.genre);
   });
-  const filteredGenreArray = Array.from(filteredGenre);
+  const filteredGenreArray = Array.from(filteredGenre) as string[];
 
-  //uniq year getting from searched books
+  //finding year for selected genre
+  const selectedGenresYear = books?.data?.filter(
+    (book: IBook) => book.genre == genre
+  );
+
+  //uniq year getting from searched books selectedGenresYear
   let filteredYear = new Set();
-  data?.data.forEach((book: IBook) => {
+  selectedGenresYear?.forEach((book: IBook) => {
     filteredYear.add(book.publicationDate);
   });
-  const filteredYearArray = Array.from(filteredYear);
+  const filteredYearArray = Array.from(filteredYear) as string[];
 
-  console.log("arrayrr", filteredGenreArray);
-  console.log("filter", data?.data);
+  //........
+  //uniq year getting from allbooks
+  let filteredYearFromAllBooks = new Set();
+  books?.data?.forEach((book: IBook) => {
+    filteredYearFromAllBooks.add(book.publicationDate);
+  });
+  const filteredYearArrayFromallBooks = Array.from(
+    filteredYearFromAllBooks
+  ) as string[];
 
-  console.log("data", data, error, isLoading);
+  console.log("year", filteredYearArrayFromallBooks);
 
+  console.log("sy", selectedGenresYear);
   const handleSearch = (event: any) => {
     event?.preventDefault();
     const searchText = event.target.searchText.value;
@@ -65,11 +78,16 @@ const AllBooks = () => {
             <div className="relative h-10 w-52 min-w-[200px]">
               <select
                 onChange={(event) => {
-                  setGenre(event.target.value), setSearchText("");
+                  setGenre(event.target.value),
+                    setSearchText(""),
+                    setpublicationYear("");
                 }}
                 className="peer h-full w-full outline-none rounded-[3px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-red-500 focus:border-1 focus:border-gray-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
               >
-                {filteredGenreArray.map((value) => (
+                <option disabled value="">
+                  select Genre
+                </option>
+                {filteredGenreArray.map((value: string) => (
                   <option key={value} value={value}>
                     {value}
                   </option>
@@ -89,11 +107,24 @@ const AllBooks = () => {
                 }}
                 className="peer h-full w-full rounded-[2px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-100 placeholder-shown:border-t-blue-gray-200 empty:!bg-red-500 focus:border-1 focus:border-gray-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
               >
-                {filteredYearArray.map((value) => (
-                  <option key={value} value={value}>
-                    {value}
-                  </option>
-                ))}
+                <option disabled>year</option>
+                {filteredYearArray.length ? (
+                  <>
+                    {filteredYearArray.map((value) => (
+                      <option key={value} value={value}>
+                        {value}
+                      </option>
+                    ))}{" "}
+                  </>
+                ) : (
+                  <>
+                    {filteredYearArrayFromallBooks.map((value) => (
+                      <option key={value} value={value}>
+                        {value}
+                      </option>
+                    ))}{" "}
+                  </>
+                )}
               </select>
               <label className=" font-sans before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
                 Year
