@@ -1,21 +1,38 @@
-import { useParams } from "react-router-dom";
-import { useGetSingleBookQuery } from "../../Redux/api/booksApi/booksApi";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import {
+  useDeleteBookMutation,
+  useGetSingleBookQuery,
+} from "../../Redux/api/booksApi/booksApi";
+import { toast } from "react-hot-toast";
 
 const BookDetailsCard = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+
+  const [disable, setDisable] = useState(false);
+
   const { data, error, isLoading } = useGetSingleBookQuery(id);
-  // const book = data.data;
-  // const { title, author, genre, image, publicationDate, _id } =book
   console.log(data?.data?.title, error, isLoading);
+
+  const [deleteBook, { data: deleteData, isError, isSuccess }] =
+    useDeleteBookMutation();
+  console.log("delete", deleteData, isError, isSuccess);
+
+  const handleDelete = () => {
+    deleteBook(id);
+  };
+  if (deleteData?.success === true) {
+    toast.success(`${deleteData?.data?.title} is deleted`);
+    navigate("/");
+  }
+
   return (
     <div className="w-full lg:h-[400px] flex justify-center mt-6 ">
       <div className="relative flex flex-col w-full justify-center max-w-[48rem] md:flex-row rounded-sm bg-white bg-clip-border text-gray-700 shadow-md">
         <div className="relative m-0 md:w-2/5  flex justify-center shrink-0 overflow-hidden rounded-sm rounded-r-none bg-white bg-clip-border text-gray-700">
-          <img
-            src={data?.data?.image}
-            alt="image"
-            className="h-full  object-cover"
-          />
+          <img src={data?.data?.image} alt="image" className="  max-w-full  " />
         </div>
         <div className="p-6 flex flex-col justify-center">
           {/* <h6 className="mb-4 block font-sans text-base font-semibold uppercase leading-relaxed tracking-normal text-pink-500 antialiased">
@@ -96,30 +113,104 @@ const BookDetailsCard = () => {
             company selling licenses. Yet its own business model disruption is
             only part of the story
           </p>
-          <a className="inline-block" href="#">
-            <button
-              className="flex select-none items-center gap-2 rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              type="button"
-            >
-              + wishList
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                aria-hidden="true"
-                className="h-4 w-4"
+
+          <div className="flex">
+            <a className="inline-block" href="#">
+              <button
+                className="flex select-none items-center gap-2 rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                type="button"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                ></path>
-              </svg>
+                + wishList
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="2"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                  className="h-4 w-4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                  ></path>
+                </svg>
+              </button>
+            </a>
+            <Link to={`/editbook/${id}`}>
+              <button
+                className="middle none center rounded-lg py-3 px-6 font-sans text-xs font-bold uppercase text-green-500 transition-all hover:bg-green-500/10 active:bg-green-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                data-ripple-dark="true"
+              >
+                Edit
+              </button>
+            </Link>
+
+            <button
+              // onClick={handleDelete}
+              onClick={() => setShowModal(true)}
+              className="middle none center rounded-lg py-3 px-6 font-sans text-xs font-bold uppercase text-red-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              data-ripple-dark="true"
+            >
+              Delete
             </button>
-          </a>
+          </div>
         </div>
+      </div>
+
+      {/* ..........................modal....................... */}
+
+      <div>
+        {showModal ? (
+          <>
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+              <div className="relative w-auto my-6 mx-auto lg:w-5/12">
+                {/*content*/}
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                  {/*header*/}
+                  <div className="flex items-start justify-between p-1  rounded-t">
+                    <h3 className="text-lg font-semibold mx-3">
+                      Want to Delete book?
+                    </h3>
+                    <button
+                      className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                      onClick={() => setShowModal(false)}
+                    >
+                      <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+                        ×
+                      </span>
+                    </button>
+                  </div>
+                  {/*body*/}
+
+                  <div className="px-4 py-3">
+                    <h1>After deleting, the book will not be undone</h1>
+                  </div>
+
+                  {/*footer*/}
+                  <div className="flex items-center justify-end  rounded-b">
+                    <button
+                      onClick={() => setShowModal(false)}
+                      className=" text-green-600 active:bg-emerald-600 font-bold uppercase text-sm px-2 py-1 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="submit"
+                    >
+                      close
+                    </button>
+                    <button
+                      onClick={handleDelete}
+                      className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      type="button"
+                    >
+                      delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+          </>
+        ) : null}
       </div>
     </div>
   );

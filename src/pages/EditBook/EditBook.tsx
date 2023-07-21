@@ -1,40 +1,42 @@
 import { toast } from "react-hot-toast";
-import { useAddBookMutation } from "../../Redux/api/booksApi/booksApi";
-import { uploadImage } from "../../api/uploadImage";
-import { useNavigate } from "react-router-dom";
+import {
+  useGetSingleBookQuery,
+  useUpdateBookMutation,
+} from "../../Redux/api/booksApi/booksApi";
 
-const AddBook = () => {
-  const [addBook, { data, isLoading, isError, isSuccess, error }] =
-    useAddBookMutation();
+import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+
+const EditBook = () => {
+  const { id } = useParams();
+  const [updatedData, setUpdatedData] = useState({});
+  console.log("ud", updatedData);
+
+  const { data: book } = useGetSingleBookQuery(id);
+
+  const [updateBook, { data, isLoading, isError, isSuccess, error }] =
+    useUpdateBookMutation();
   console.log(data, isLoading, isError, isSuccess, error);
   const navigate = useNavigate();
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const form = event.target;
-    const title = form.title.value;
-    const author = form.author.value;
-    const genre = form.genre.value;
-    const date = form.date.value;
     const image = form.image.files[0];
-
-    uploadImage(image).then((url) => {
-      console.log(url);
-      if (url) {
-        const options = {
-          data: {
-            title: title as string,
-            author: author as string,
-            genre: genre as string,
-            publicationDate: date as string,
-            image: url as string,
-          },
-        };
-        addBook(options);
-      }
-    });
+    const options = {
+      id: id,
+      data: updatedData,
+    };
+    console.log("options", options);
+    updateBook(options);
+    // uploadImage(image).then((url) => {
+    //   console.log(url);
+    //   if (url) {
+    //   }
+    // });
   };
   if (isSuccess) {
-    toast.success("your book is uploaded");
+    toast.success("your book is updated");
     navigate("/");
   }
   return (
@@ -44,14 +46,8 @@ const AddBook = () => {
           <div className="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-lg sm:p-10">
             <div className="max-w-md mx-auto">
               <div className="flex items-center space-x-5">
-                <div className="h-14 w-14 bg-yellow-200 rounded-full flex flex-shrink-0 justify-center items-center text-yellow-500 text-2xl font-mono">
-                  i
-                </div>
-                <div className="block pl-2 font-semibold text-xl self-start text-gray-700">
-                  <h2 className="leading-relaxed">Upload a book</h2>
-                  <p className="text-sm text-gray-500 font-normal leading-relaxed">
-                    Upload a book for others
-                  </p>
+                <div className="block pl-2 justify-center font-semibold text-xl self-start text-gray-700">
+                  <h2 className="leading-relaxed">Edit book</h2>
                 </div>
               </div>
 
@@ -59,9 +55,17 @@ const AddBook = () => {
                 <div className="divide-y divide-gray-200">
                   <div className="py-4 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                     <div className="flex flex-col">
-                      <label className="leading-loose">Book Title</label>
+                      <label className="leading-loose font-sans">
+                        Book Title
+                      </label>
                       <input
-                        required
+                        onChange={(event) =>
+                          setUpdatedData({
+                            ...updatedData,
+                            title: event.target.value,
+                          })
+                        }
+                        defaultValue={book?.data?.title}
                         name="title"
                         type="text"
                         className="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
@@ -71,7 +75,13 @@ const AddBook = () => {
                     <div className="flex flex-col">
                       <label className="leading-loose">Book Author</label>
                       <input
-                        required
+                        onChange={(event) =>
+                          setUpdatedData({
+                            ...updatedData,
+                            author: event.target.value,
+                          })
+                        }
+                        defaultValue={book?.data?.author}
                         name="author"
                         type="text"
                         className="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
@@ -84,7 +94,13 @@ const AddBook = () => {
                         <label className="leading-loose">Genre</label>
                         <div className="relative focus-within:text-gray-600 text-gray-400">
                           <input
-                            required
+                            onChange={(event) =>
+                              setUpdatedData({
+                                ...updatedData,
+                                genre: event.target.value,
+                              })
+                            }
+                            defaultValue={book?.data?.genre}
                             name="genre"
                             type="text"
                             className="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
@@ -99,7 +115,13 @@ const AddBook = () => {
                         </label>
                         <div className="relative focus-within:text-gray-600 text-gray-400">
                           <input
-                            required
+                            onChange={(event) =>
+                              setUpdatedData({
+                                ...updatedData,
+                                publicationDate: event.target.value,
+                              })
+                            }
+                            defaultValue={book?.data?.publicationDate}
                             name="date"
                             type="date"
                             className="pr-4 pl-10 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
@@ -112,7 +134,7 @@ const AddBook = () => {
                     {/* <div className="flex flex-col">
                     <label className="leading-loose">Book Description</label>
                     <input
-                    required
+                    
                       type="text"
                       className="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
                       placeholder="Optional"
@@ -132,10 +154,9 @@ const AddBook = () => {
                             <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
                           </svg>
                           <span className="mt-2 text-xs lg:text-base leading-normal">
-                            upload Books pic
+                            upload pic
                           </span>
                           <input
-                            required
                             accept="image/*"
                             name="image"
                             type="file"
@@ -184,4 +205,4 @@ const AddBook = () => {
   );
 };
 
-export default AddBook;
+export default EditBook;
