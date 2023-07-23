@@ -1,7 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { api } from "./api/apiSlice";
+import userSlice from "./features/userSlice";
 const store = configureStore({
   reducer: {
+    user: userSlice,
     [api.reducerPath]: api.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,

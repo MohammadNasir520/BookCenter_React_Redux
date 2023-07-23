@@ -1,11 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../Redux/api/userApi/userApi";
 import { toast } from "react-hot-toast";
+import { useAppDispatch } from "../../Redux/hook";
+import { setUser } from "../../Redux/features/userSlice";
 
 const Login = () => {
   const [login, { data, isError, isSuccess, isLoading }] = useLoginMutation();
   console.log(data, isError, isLoading, isSuccess);
+
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
     const form = event.target;
@@ -19,9 +24,12 @@ const Login = () => {
       },
     };
     const loggedInData: any = await login(options);
-    console.log(loggedInData?.data?.success);
+    console.log("logindata", loggedInData?.data?.data);
     if (loggedInData?.data?.success === true) {
       form.reset();
+
+      localStorage.setItem("user", JSON.stringify(loggedInData.data.data));
+      dispatch(setUser(loggedInData.data.data));
       toast.success("logged in successful");
       navigate("/");
     }

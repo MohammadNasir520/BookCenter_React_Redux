@@ -1,10 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../Redux/hook";
+import { setUser } from "../Redux/features/userSlice";
 
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
 
-  const user = "";
+  const { accessToken, user } = useAppSelector((state) => state.user);
+
+  const dispatch = useAppDispatch();
+
+  const handleSignout = () => {
+    dispatch(
+      setUser({
+        accessToken: null,
+        user: null,
+      })
+    );
+  };
 
   const NavFont =
     "mr-4 block cursor-pointer py-1.5 font-sans text-xl font-medium leading-relaxed  antialiased";
@@ -95,14 +108,15 @@ const Navbar = () => {
 
   const signOption = (
     <div className=" lg:flex">
-      {user ? (
+      {user && accessToken ? (
         <NavLink
+          onClick={handleSignout}
           className={`${
             isMenuOpen
               ? "block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700  rounded-xl"
               : "hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200 "
           }`}
-          to={""}
+          to={"/"}
         >
           SignOut
         </NavLink>
@@ -130,12 +144,12 @@ const Navbar = () => {
           </NavLink>
         </>
       )}
-      <div className="flex items-center space-x-2 m ">
+      {/* <div className="flex items-center space-x-2 m ">
         <img className="w-10 h-10 rounded-full" src={``} alt="pp" />
         {isMenuOpen && (
           <h2 className="text-gray-800 font-bold cursor-pointer">{}</h2>
         )}
-      </div>
+      </div> */}
     </div>
   );
 

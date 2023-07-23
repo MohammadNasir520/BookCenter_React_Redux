@@ -6,19 +6,24 @@ import {
   useGetBooksQuery,
 } from "../../Redux/api/booksApi/booksApi";
 import { useState } from "react";
+import FullPageSpinner from "../../shared/FullPageSpinner";
 
 const AllBooks = () => {
   const [searchText, setSearchText] = useState("");
   const [genre, setGenre] = useState("");
   const [publicationYear, setpublicationYear] = useState("");
 
-  const { data, error, isLoading } = useGetBooksBySearchAndFilterQuery({
+  const {
+    data,
+    error,
+    isLoading: filterLoading,
+  } = useGetBooksBySearchAndFilterQuery({
     searchText,
     genre: genre || undefined,
     publicationYear: publicationYear || undefined,
   });
 
-  const { data: books } = useGetBooksQuery(undefined);
+  const { data: books, isLoading, isError } = useGetBooksQuery(undefined);
 
   //uniq genre getting
   let filteredGenre = new Set();
@@ -57,7 +62,9 @@ const AllBooks = () => {
     const searchText = event.target.searchText.value;
     setSearchText(searchText);
   };
-
+  if (isLoading) {
+    return <FullPageSpinner></FullPageSpinner>;
+  }
   return (
     <div>
       <Link to={"/addbook"}>
