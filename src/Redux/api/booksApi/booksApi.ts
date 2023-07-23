@@ -42,6 +42,7 @@ const booksApi = api.injectEndpoints({
     }),
     getSingleReview: builder.query({
       query: (id) => `/reviews/${id}`,
+      providesTags: ["review"],
     }),
     postBookReview: builder.mutation({
       query: ({ data }) => ({
@@ -49,6 +50,7 @@ const booksApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["review"],
     }),
   }),
 });
