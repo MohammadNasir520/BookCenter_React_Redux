@@ -8,6 +8,7 @@ import {
   usePostBookReviewMutation,
 } from "../../Redux/api/booksApi/booksApi";
 import { useAppSelector } from "../../Redux/hook";
+import { toast } from "react-hot-toast";
 
 const ReviewsSection = () => {
   const { id } = useParams();
@@ -21,7 +22,15 @@ const ReviewsSection = () => {
   console.log("post revview", data);
   const handleSubmit = async (event: any) => {
     event.preventDefault();
+
+    if (!user) {
+      return toast.error("please signIn to review");
+    }
+
     const reviewText = event.target.elements.review.value;
+    if (!reviewText) {
+      return toast.error("please type your review to review");
+    }
     const options = {
       data: {
         book: id,
@@ -29,7 +38,11 @@ const ReviewsSection = () => {
         user: user?._id,
       },
     };
-    postBookComment(options);
+    const commentData = await postBookComment(options);
+    console.log("comment", commentData);
+    if (commentData?.data?.success) {
+      return toast.success("your review added");
+    }
   };
   console.log("post revview2");
   return (

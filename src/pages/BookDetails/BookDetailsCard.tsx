@@ -142,7 +142,7 @@ const BookDetailsCard = () => {
                 </svg>
               </button>
             </a>
-            {isUserMatch && (
+            {isUserMatch && loggedInUserId && (
               <>
                 <Link to={`/editbook/${id}`}>
                   <button

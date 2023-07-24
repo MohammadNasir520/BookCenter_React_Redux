@@ -5,8 +5,12 @@ import { useAppDispatch } from "../../Redux/hook";
 import { setUser } from "../../Redux/features/userSlice";
 
 const Login = () => {
-  const [login, { data, isError, isSuccess, isLoading }] = useLoginMutation();
-  console.log(data, isError, isLoading, isSuccess);
+  const [login, { data, isError, isSuccess, isLoading, error }] =
+    useLoginMutation();
+  console.log(data, isError, isLoading, isSuccess, "error", error);
+  if (error) {
+    toast.error(`${error.data.message}`);
+  }
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -25,6 +29,7 @@ const Login = () => {
     };
     const loggedInData: any = await login(options);
     console.log("logindata", loggedInData?.data?.data);
+
     if (loggedInData?.data?.success === true) {
       form.reset();
 

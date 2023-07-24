@@ -84,25 +84,27 @@ const Navbar = () => {
         </NavLink>
       </li> */}
 
-      <li>
-        <NavLink
-          onClick={() => setMenuOpen(false)}
-          to={"/addbook"}
-          className={({ isActive }) =>
-            ` ${
-              isActive
-                ? "text-blue-700 font-bold p-4"
-                : `${
-                    isMenuOpen
-                      ? "block p-4 text-sm font-semibold text-inherit hover:bg-blue-50  rounded"
-                      : "text-sm text-inherit hover:text-gray-500 "
-                  }  `
-            } ${NavFont}`
-          }
-        >
-          AddBook
-        </NavLink>
-      </li>
+      {accessToken && user && (
+        <li>
+          <NavLink
+            onClick={() => setMenuOpen(false)}
+            to={"/addbook"}
+            className={({ isActive }) =>
+              ` ${
+                isActive
+                  ? "text-blue-700 font-bold p-4"
+                  : `${
+                      isMenuOpen
+                        ? "block p-4 text-sm font-semibold text-inherit hover:bg-blue-50  rounded"
+                        : "text-sm text-inherit hover:text-gray-500 "
+                    }  `
+              } ${NavFont}`
+            }
+          >
+            AddBook
+          </NavLink>
+        </li>
+      )}
     </>
   );
 

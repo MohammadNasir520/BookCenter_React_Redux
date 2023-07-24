@@ -33,7 +33,7 @@ const Signup = () => {
       toast.success("account creation successful please login");
       event.target.reset();
       setError(" ");
-      navigate("/login");
+      navigate("/signIn");
     } else if (signedUp.error) {
       setError(signedUp.error.data.message);
     }
