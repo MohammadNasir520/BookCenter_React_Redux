@@ -1,19 +1,14 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import addButtonPic from "../assets/add-button.png";
-import { IButton } from "../globalInterfaces/globalInterfaces";
 
-interface BooksTableProps {
-  button: IButton;
-}
-
-const BooksTable = ({ button }: BooksTableProps) => {
+const ReadingBookTable = () => {
   const books = [
     {
       author: "Dracula",
       imageUrl: "https://pictures.abebooks.com/inventory/31367552755.jpg",
       email: "Author",
-      role: "reading",
+      role: "admin",
       district: "sirajgonj",
       batch: "2020",
     },
@@ -21,7 +16,7 @@ const BooksTable = ({ button }: BooksTableProps) => {
       author: "Dracula",
       imageUrl: "https://pictures.abebooks.com/inventory/31367552755.jpg",
       email: "Author",
-      role: "not read",
+      role: "admin",
       district: "sirajgonj",
       batch: "2020",
     },
@@ -29,11 +24,13 @@ const BooksTable = ({ button }: BooksTableProps) => {
       author: "Dracula",
       imageUrl: "https://pictures.abebooks.com/inventory/31367552755.jpg",
       email: "Author",
-      role: "Finished",
+      role: "admin",
       district: "sirajgonj",
       batch: "2020",
     },
   ];
+
+  useEffect(() => {}, []);
 
   const handleDelete = () => {};
   const handleApprove = () => {};
@@ -57,10 +54,10 @@ const BooksTable = ({ button }: BooksTableProps) => {
               Reading status
             </th>
             <th scope="col" className="px-2 py-4 font-medium text-gray-900">
-              {button.th}
+              add to readList
             </th>
             <th scope="col" className="px-2 py-4 font-medium text-gray-900">
-              Remove
+              Delete
             </th>
           </tr>
         </thead>
@@ -110,11 +107,10 @@ const BooksTable = ({ button }: BooksTableProps) => {
                 </div>
               </td>
 
-              {/*............................. add button............................. */}
+              {/*............................. edit button............................. */}
               <td className="md:px-6 py-4 cursor-pointer">
-                <div className="flex text-center font-bold">
-                  <img className="h-6 w-6" src={button.img} alt="" />
-                  <p>{button.title}</p>
+                <div className="flex text-center gap-4">
+                  <img className="h-6 w-6" src={addButtonPic} alt="" />
                 </div>
               </td>
 
@@ -148,4 +144,4 @@ const BooksTable = ({ button }: BooksTableProps) => {
   );
 };
 
-export default BooksTable;
+export default ReadingBookTable;

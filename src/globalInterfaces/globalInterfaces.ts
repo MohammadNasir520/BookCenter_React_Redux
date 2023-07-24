@@ -14,3 +14,8 @@ interface IReview {
   user: IUser;
   reviewText: string;
 }
+export interface IButton {
+  th: string;
+  title: string;
+  img: string;
+}
