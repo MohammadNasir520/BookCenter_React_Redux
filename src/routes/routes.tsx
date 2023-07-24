@@ -9,6 +9,7 @@ import BookDetails from "../pages/BookDetails/BookDetails";
 import Login from "../pages/Login/Login";
 import EditBook from "../pages/EditBook/EditBook";
 import Error from "../pages/Error/Error";
+import WishList from "../pages/WishList/WishList";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: "/editbook/:id",
         element: <EditBook></EditBook>,
+      },
+      {
+        path: "/wishlist",
+        element: <WishList></WishList>,
       },
     ],
   },
