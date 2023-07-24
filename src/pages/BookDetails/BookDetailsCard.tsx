@@ -5,16 +5,17 @@ import {
   useGetSingleBookQuery,
 } from "../../Redux/api/booksApi/booksApi";
 import { toast } from "react-hot-toast";
+import { useAppSelector } from "../../Redux/hook";
 
 const BookDetailsCard = () => {
+  const loggedInUserId = useAppSelector((state) => state.user.user?._id);
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
 
-  const [disable, setDisable] = useState(false);
-
   const { data, error, isLoading } = useGetSingleBookQuery(id);
-  console.log(data?.data?.title, error, isLoading);
+  console.log("singlebook", data, error, isLoading);
 
   const [deleteBook, { data: deleteData, isError, isSuccess }] =
     useDeleteBookMutation();
@@ -27,6 +28,9 @@ const BookDetailsCard = () => {
     toast.success(`${deleteData?.data?.title} is deleted`);
     navigate("/");
   }
+
+  const isUserMatch = loggedInUserId === data?.data?.user;
+  console.log(isUserMatch, "match");
 
   return (
     <div className="w-full lg:h-[400px] flex justify-center mt-6 ">
@@ -107,12 +111,12 @@ const BookDetailsCard = () => {
               {data?.data?.publicationDate}
             </h3>
           </div>
-          <p className="mb-8 block font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
+          {/* <p className="mb-8 block font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
             Like so many organizations these days, Autodesk is a company in
             transition. It was until recently a traditional boxed software
             company selling licenses. Yet its own business model disruption is
             only part of the story
-          </p>
+          </p> */}
 
           <div className="flex">
             <a className="inline-block" href="#">
@@ -138,23 +142,27 @@ const BookDetailsCard = () => {
                 </svg>
               </button>
             </a>
-            <Link to={`/editbook/${id}`}>
-              <button
-                className="middle none center rounded-lg py-3 px-6 font-sans text-xs font-bold uppercase text-green-500 transition-all hover:bg-green-500/10 active:bg-green-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                data-ripple-dark="true"
-              >
-                Edit
-              </button>
-            </Link>
+            {isUserMatch && (
+              <>
+                <Link to={`/editbook/${id}`}>
+                  <button
+                    className="middle none center rounded-lg py-3 px-6 font-sans text-xs font-bold uppercase text-green-500 transition-all hover:bg-green-500/10 active:bg-green-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                    data-ripple-dark="true"
+                  >
+                    Edit
+                  </button>
+                </Link>
 
-            <button
-              // onClick={handleDelete}
-              onClick={() => setShowModal(true)}
-              className="middle none center rounded-lg py-3 px-6 font-sans text-xs font-bold uppercase text-red-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              data-ripple-dark="true"
-            >
-              Delete
-            </button>
+                <button
+                  // onClick={handleDelete}
+                  onClick={() => setShowModal(true)}
+                  className="middle none center rounded-lg py-3 px-6 font-sans text-xs font-bold uppercase text-red-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  data-ripple-dark="true"
+                >
+                  Delete
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

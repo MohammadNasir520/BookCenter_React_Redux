@@ -8,11 +8,13 @@ import AddBook from "../pages/AddBook/AddBook";
 import BookDetails from "../pages/BookDetails/BookDetails";
 import Login from "../pages/Login/Login";
 import EditBook from "../pages/EditBook/EditBook";
+import Error from "../pages/Error/Error";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <Error></Error>,
     children: [
       {
         path: "/",

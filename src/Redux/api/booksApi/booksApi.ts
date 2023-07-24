@@ -21,9 +21,11 @@ const booksApi = api.injectEndpoints({
         method: "PATCH",
         body: data,
       }),
+      invalidatesTags: ["updateBook"],
     }),
     getBooks: builder.query({
       query: () => `/books`,
+      providesTags: ["updateBook"],
     }),
     getBooksBySearchAndFilter: builder.query({
       query: ({ searchText, genre, publicationYear }) => {
@@ -39,6 +41,7 @@ const booksApi = api.injectEndpoints({
     }),
     getSingleBook: builder.query({
       query: (id) => `/books/${id}`,
+      providesTags: ["updateBook"],
     }),
     getSingleReview: builder.query({
       query: (id) => `/reviews/${id}`,

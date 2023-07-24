@@ -190,8 +190,8 @@ const EditBook = () => {
                         {isLoading
                           ? "uploading"
                           : isSuccess
-                          ? "created"
-                          : "create"}
+                          ? "updated"
+                          : "update"}
                       </>
                     </button>
                   </div>

@@ -3,9 +3,11 @@ import { useGetBooksQuery } from "../../Redux/api/booksApi/booksApi";
 import BookCard from "../../components/BookCard";
 import { IBook } from "../../globalInterfaces/book.interface";
 import FullPageSpinner from "../../shared/FullPageSpinner";
+import NotFound from "../NotFound/NotFound";
+import Error from "../Error/Error";
 
 const Home = () => {
-  const { data, error, isLoading } = useGetBooksQuery(null, {
+  const { data, error, isLoading, isError } = useGetBooksQuery(null, {
     refetchOnMountOrArgChange: true,
     pollingInterval: 30000,
   });
@@ -13,6 +15,9 @@ const Home = () => {
 
   if (isLoading) {
     return <FullPageSpinner></FullPageSpinner>;
+  }
+  if (isError) {
+    return <Error></Error>;
   }
   return (
     <div>

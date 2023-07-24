@@ -30,10 +30,10 @@ const Signup = () => {
     const signedUp: any = await signup(options);
     console.log("signedUp", signedUp);
     if (signedUp?.data?.success === true) {
-      toast.success("your account has been created successfully");
+      toast.success("account creation successful please login");
       event.target.reset();
       setError(" ");
-      navigate("/");
+      navigate("/login");
     } else if (signedUp.error) {
       setError(signedUp.error.data.message);
     }

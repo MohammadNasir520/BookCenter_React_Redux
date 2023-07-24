@@ -2,8 +2,11 @@ import { toast } from "react-hot-toast";
 import { useAddBookMutation } from "../../Redux/api/booksApi/booksApi";
 import { uploadImage } from "../../api/uploadImage";
 import { useNavigate } from "react-router-dom";
+import { useAppSelector } from "../../Redux/hook";
 
 const AddBook = () => {
+  const userId = useAppSelector((state) => state?.user?.user?._id);
+
   const [addBook, { data, isLoading, isError, isSuccess, error }] =
     useAddBookMutation();
   console.log(data, isLoading, isError, isSuccess, error);
@@ -31,6 +34,7 @@ const AddBook = () => {
             genre: genre as string,
             publicationDate: year as string,
             image: url as string,
+            user: userId,
           },
         };
         addBook(options);

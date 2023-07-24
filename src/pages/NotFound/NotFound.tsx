@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 const NotFound = () => {
   return (
     <div>
-      <h1>
+      <h1 className="h-screen">
         your destination is not exist{" "}
         <Link to={"/"}>
           {" "}

@@ -7,9 +7,11 @@ import {
   useGetSingleReviewQuery,
   usePostBookReviewMutation,
 } from "../../Redux/api/booksApi/booksApi";
+import { useAppSelector } from "../../Redux/hook";
 
 const ReviewsSection = () => {
   const { id } = useParams();
+  const { user } = useAppSelector((state) => state.user);
 
   const { data: reviews } = useGetSingleReviewQuery(id);
   console.log("review", reviews?.data);
@@ -24,7 +26,7 @@ const ReviewsSection = () => {
       data: {
         book: id,
         reviewText: reviewText,
-        user: "64b81cebe84431174b903048",
+        user: user?._id,
       },
     };
     postBookComment(options);
