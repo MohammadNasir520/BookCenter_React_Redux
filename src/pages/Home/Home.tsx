@@ -3,7 +3,7 @@ import { useGetBooksQuery } from "../../Redux/api/booksApi/booksApi";
 import BookCard from "../../components/BookCard";
 import { IBook } from "../../globalInterfaces/book.interface";
 import FullPageSpinner from "../../shared/FullPageSpinner";
-import NotFound from "../NotFound/NotFound";
+
 import Error from "../Error/Error";
 
 const Home = () => {

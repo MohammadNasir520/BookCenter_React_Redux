@@ -15,10 +15,18 @@ const usersApi = api.injectEndpoints({
         method: "PATCH",
         body: wishListUpdatedData,
       }),
+      invalidatesTags: ["addToReadList"],
+    }),
+    removeFromWishList: builder.mutation({
+      query: (id) => ({
+        url: `/wishlists/${id}`,
+        method: "DELETE",
+      }),
     }),
 
     getAllWishLists: builder.query({
       query: ({ id, status }) => `/wishlists/${id}?status=${status}`,
+      providesTags: ["addToReadList"],
     }),
   }),
 });
@@ -26,4 +34,5 @@ export const {
   useAddToWishListMutation,
   useAddReadingListMutation,
   useGetAllWishListsQuery,
+  useRemoveFromWishListMutation,
 } = usersApi;

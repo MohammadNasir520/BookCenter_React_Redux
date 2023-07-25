@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { IButton, IUser } from "../globalInterfaces/globalInterfaces";
 
 import { IBook } from "../globalInterfaces/book.interface";
+import { useRemoveFromWishListMutation } from "../Redux/api/wishListApi/wishListApi";
+import { toast } from "react-hot-toast";
 
 export interface IWishListBook {
   map(
@@ -21,8 +23,17 @@ interface BooksTableProps {
   undo: any;
 }
 
-const BooksTable = ({ button, wishLists, action, undo }: BooksTableProps) => {
-  const handleDelete = () => {};
+const BooksTable = ({ button, wishLists, action }: BooksTableProps) => {
+  const [removeFromWishList, { data, error, isSuccess }] =
+    useRemoveFromWishListMutation();
+  if (data?.success) {
+    toast.success("your book is deleted from wishList");
+  }
+  console.log("remove", data, error, isSuccess);
+  const handleRemoveFromWishList = (book: IWishListBook) => {
+    console.log(book);
+    removeFromWishList(book?._id);
+  };
 
   return (
     // <!-- component -->
@@ -102,7 +113,7 @@ const BooksTable = ({ button, wishLists, action, undo }: BooksTableProps) => {
               <td className="md:px-6 py-4 cursor-pointer ">
                 <div
                   onClick={() => action(book)}
-                  className="flex text-center font-bold bg-green-400"
+                  className="flex text-center font-bold "
                 >
                   <img className="h-6 w-6" src={button.img} alt="" />
                   <p>{button.title}</p>
@@ -111,7 +122,10 @@ const BooksTable = ({ button, wishLists, action, undo }: BooksTableProps) => {
 
               {/*.............................delete button............................. */}
               <td className="md:px-6 py-4">
-                <div className="flex  gap-4">
+                <div
+                  onClick={() => handleRemoveFromWishList(book)}
+                  className="flex  gap-4"
+                >
                   <Link x-data="{ tooltip: 'Delete' }" to={""}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

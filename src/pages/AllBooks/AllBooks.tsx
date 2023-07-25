@@ -13,17 +13,13 @@ const AllBooks = () => {
   const [genre, setGenre] = useState("");
   const [publicationYear, setpublicationYear] = useState("");
 
-  const {
-    data,
-    error,
-    isLoading: filterLoading,
-  } = useGetBooksBySearchAndFilterQuery({
+  const { data } = useGetBooksBySearchAndFilterQuery({
     searchText,
     genre: genre || undefined,
     publicationYear: publicationYear || undefined,
   });
 
-  const { data: books, isLoading, isError } = useGetBooksQuery(undefined);
+  const { data: books, isLoading } = useGetBooksQuery(undefined);
 
   //uniq genre getting
   let filteredGenre = new Set();
@@ -166,7 +162,7 @@ const AllBooks = () => {
                 required
               />
               <button
-                className=" font-sans !absolute   right-1 top-1 z-10 select-none rounded bg-gray-900 py-2 px-4 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none peer-placeholder-shown:pointer-events-none peer-placeholder-shown:bg-blue-gray-500 peer-placeholder-shown:opacity-50 peer-placeholder-shown:shadow-none cursor-pointer !important"
+                className=" font-sans !absolute   right-1 top-1 z-10 select-none rounded bg-gray-900 py-2 px-4 text-center align-middle  text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none peer-placeholder-shown:pointer-events-none peer-placeholder-shown:bg-blue-gray-500 peer-placeholder-shown:opacity-50 peer-placeholder-shown:shadow-none cursor-pointer !important"
                 type="submit"
               >
                 search

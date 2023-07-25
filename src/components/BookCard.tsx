@@ -9,14 +9,13 @@ interface IProps {
 
 const BookCard = ({ book }: IProps) => {
   const { title, author, genre, image, publicationDate, _id } = book;
-  console.log(publicationDate);
+
   const userId = useAppSelector((state) => state.user.user?._id);
 
   const [addToWishList, { data, isLoading, isError, isSuccess, error }] =
     useAddToWishListMutation();
   console.log(data, isLoading, isError, isSuccess, error);
   const handleAddToWishList = (bookId: string | undefined) => {
-    console.log("add buton");
     const options = {
       wishListData: {
         user: userId,

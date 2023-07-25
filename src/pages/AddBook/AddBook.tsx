@@ -4,15 +4,21 @@ import { uploadImage } from "../../api/uploadImage";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../Redux/hook";
 
+interface ErrorResponse {
+  data: {
+    errorMessages: [{ message: string }];
+  };
+}
+
 const AddBook = () => {
   const userId = useAppSelector((state) => state?.user?.user?._id);
 
   const [addBook, { data, isLoading, isError, isSuccess, error }] =
     useAddBookMutation();
   console.log(data, isLoading, isError, isSuccess, error);
-  console.log("errror", error?.data?.errorMessages[0]?.message);
+
   if (isError) {
-    toast.error(`${error?.data?.errorMessages[0]?.message}`);
+    toast.error(`${(error as ErrorResponse)?.data?.errorMessages[0]?.message}`);
   }
   const navigate = useNavigate();
   const handleSubmit = async (event: any) => {
@@ -47,7 +53,7 @@ const AddBook = () => {
   }
   return (
     <div>
-      <div className="min-h-screen bg-gray-100 py-2 flex flex-col justify-center sm:py-12">
+      <div className=" bg-gray-100 py-2 flex flex-col justify-center ">
         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
           <div className="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-lg sm:p-10">
             <div className="max-w-md mx-auto">

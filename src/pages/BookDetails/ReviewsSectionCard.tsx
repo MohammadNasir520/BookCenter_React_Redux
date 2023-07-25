@@ -17,9 +17,8 @@ const ReviewsSection = () => {
   const { data: reviews } = useGetSingleReviewQuery(id);
   console.log("review", reviews?.data);
 
-  const [postBookComment, { isError, isSuccess, isLoading, data }] =
-    usePostBookReviewMutation();
-  console.log("post revview", data);
+  const [postBookComment, { data }] = usePostBookReviewMutation();
+  console.log("post review", data);
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
@@ -38,7 +37,7 @@ const ReviewsSection = () => {
         user: user?._id,
       },
     };
-    const commentData = await postBookComment(options);
+    const commentData: any = await postBookComment(options);
     console.log("comment", commentData);
     if (commentData?.data?.success) {
       return toast.success("your review added");

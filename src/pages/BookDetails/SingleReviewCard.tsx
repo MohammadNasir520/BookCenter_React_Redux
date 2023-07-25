@@ -1,3 +1,5 @@
+import { IReview } from "../../globalInterfaces/globalInterfaces";
+
 interface IProps {
   review: IReview;
 }

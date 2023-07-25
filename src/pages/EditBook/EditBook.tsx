@@ -21,8 +21,8 @@ const EditBook = () => {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    const form = event.target;
-    const image = form.image.files[0];
+    // const form = event.target;
+    // const image = form.image.files[0];
     const options = {
       id: id,
       data: updatedData,
@@ -41,7 +41,7 @@ const EditBook = () => {
   }
   return (
     <div>
-      <div className="min-h-screen bg-gray-100 py-2 flex flex-col justify-center sm:py-12">
+      <div className="bg-gray-100 py-2 flex flex-col justify-center sm:py-12">
         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
           <div className="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-lg sm:p-10">
             <div className="max-w-md mx-auto">

@@ -6,7 +6,6 @@ export const uploadImage = async (image: string | Blob) => {
   const formData = new FormData();
   formData.append("image", image);
 
-  console.log("fromdata", formData);
   const response = await fetch(url, {
     method: "POST",
     body: formData,

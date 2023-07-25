@@ -4,14 +4,19 @@ import { toast } from "react-hot-toast";
 import { useAppDispatch } from "../../Redux/hook";
 import { setUser } from "../../Redux/features/userSlice";
 
-const Login = () => {
-  const [login, { data, isError, isSuccess, isLoading, error }] =
-    useLoginMutation();
-  console.log(data, isError, isLoading, isSuccess, "error", error);
-  if (error) {
-    toast.error(`${error.data.message}`);
-  }
+interface ErrorResponse {
+  data: {
+    errorMessages: [{ message: string }];
+    message: string;
+  };
+}
 
+const Login = () => {
+  const [login, { error }] = useLoginMutation();
+  console.log(error);
+  if (error) {
+    toast.error(`${(error as ErrorResponse)?.data?.message}`);
+  }
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -86,7 +91,7 @@ const Login = () => {
 
             <button
               type="submit"
-              className="block w-full rounded-lg  bg-slate-700 hover:bg-slate-900 focus:bg-slate-700 text-white px-5 py-3 text-sm font-medium text-white"
+              className="block w-full rounded-lg  bg-slate-700 hover:bg-slate-900 focus:bg-slate-700  px-5 py-3 text-sm font-medium text-white"
             >
               SignIn
             </button>
