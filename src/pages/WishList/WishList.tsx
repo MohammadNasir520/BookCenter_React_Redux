@@ -1,8 +1,7 @@
 import { useState } from "react";
 import BooksTable from "../../components/BooksTable";
-import ReadingBookTable from "../../components/ReadingBookTable";
-import FinishedReadingTable from "../../components/FinishedReadingTable";
 import addButtonPic from "../../assets/add-button.png";
+import undoButtonPic from "../../assets/cancel.png";
 import { IButton } from "../../globalInterfaces/globalInterfaces";
 
 const WishList = () => {
@@ -25,11 +24,18 @@ const WishList = () => {
     title: "FinishList",
     img: addButtonPic,
   };
+  const UndoButton: IButton = {
+    th: "Undo",
+    title: "undo",
+    img: undoButtonPic,
+  };
 
   if (activeTabNo === 1) {
     button = ReadListButton;
   } else if (activeTabNo === 2) {
     button = FinishedButton;
+  } else if (activeTabNo === 3) {
+    button = UndoButton;
   }
   return (
     <div>

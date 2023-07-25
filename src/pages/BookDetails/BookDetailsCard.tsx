@@ -34,11 +34,11 @@ const BookDetailsCard = () => {
 
   return (
     <div className="w-full lg:h-[400px] flex justify-center mt-6 ">
-      <div className="relative flex flex-col w-full justify-center max-w-[48rem] md:flex-row rounded-sm bg-white bg-clip-border text-gray-700 shadow-md">
+      <div className="relative flex ju flex-col w-full justify-center max-w-[48rem] md:flex-row rounded-sm bg-white bg-clip-border text-gray-700 shadow-md">
         <div className="relative m-0 md:w-2/5  flex justify-center shrink-0 overflow-hidden rounded-sm rounded-r-none bg-white bg-clip-border text-gray-700">
           <img src={data?.data?.image} alt="image" className="  max-w-full  " />
         </div>
-        <div className="p-6 flex flex-col justify-center">
+        <div className="p-6 flex flex-col justify-center w-full">
           {/* <h6 className="mb-4 block font-sans text-base font-semibold uppercase leading-relaxed tracking-normal text-pink-500 antialiased">
             startups
           </h6> */}
@@ -125,21 +125,6 @@ const BookDetailsCard = () => {
                 type="button"
               >
                 + wishList
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="2"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                  className="h-4 w-4"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                  ></path>
-                </svg>
               </button>
             </a>
             {isUserMatch && loggedInUserId && (

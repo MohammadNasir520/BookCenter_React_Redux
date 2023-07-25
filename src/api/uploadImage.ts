@@ -1,5 +1,7 @@
 export const uploadImage = async (image: string | Blob) => {
-  const url = `https://api.imgbb.com/1/upload?key=a95a8e5bfa79deda8fe4df67e21b4f26`;
+  const url = `https://api.imgbb.com/1/upload?key=${
+    import.meta.env.VITE_imageBB_key
+  }`;
 
   const formData = new FormData();
   formData.append("image", image);

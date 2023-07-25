@@ -11,6 +11,7 @@ const Home = () => {
     refetchOnMountOrArgChange: true,
     pollingInterval: 30000,
   });
+
   console.log(data, error, isLoading);
 
   if (isLoading) {
