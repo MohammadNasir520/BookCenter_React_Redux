@@ -6,10 +6,14 @@ import {
 
 import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import { uploadImage } from "../../api/uploadImage";
+import { IBook } from "../../globalInterfaces/book.interface";
 
 const EditBook = () => {
   const { id } = useParams();
-  const [updatedData, setUpdatedData] = useState({});
+  const [updatedData, setUpdatedData] = useState<Partial<IBook>>({});
+  const [image, setImage] = useState("");
+  const [disable, setDisable] = useState(false);
   console.log("ud", updatedData);
 
   const { data: book } = useGetSingleBookQuery(id);
@@ -19,26 +23,40 @@ const EditBook = () => {
   console.log(data, isLoading, isError, isSuccess, error);
   const navigate = useNavigate();
 
+  const handleImageUpload = (event: any) => {
+    setDisable(true);
+    const form = event.target;
+    const image = form.files[0];
+    uploadImage(image).then((url) => {
+      console.log(url);
+      if (url) {
+        setImage(url);
+        setDisable(false);
+      }
+    });
+  };
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    // const form = event.target;
-    // const image = form.image.files[0];
-    const options = {
+
+    let options = {
       id: id,
       data: updatedData,
     };
     console.log("options", options);
+
+    if (image) {
+      options.data.image = image;
+    }
+
+    console.log(options);
     updateBook(options);
-    // uploadImage(image).then((url) => {
-    //   console.log(url);
-    //   if (url) {
-    //   }
-    // });
   };
   if (isSuccess) {
     toast.success("your book is updated");
     navigate("/");
   }
+  console.log(image);
   return (
     <div>
       <div className="bg-gray-100 py-2 flex flex-col justify-center sm:py-12">
@@ -157,6 +175,7 @@ const EditBook = () => {
                             upload pic
                           </span>
                           <input
+                            onChange={handleImageUpload}
                             accept="image/*"
                             name="image"
                             type="file"
@@ -168,7 +187,7 @@ const EditBook = () => {
                   </div>
 
                   <div className="pt-2 flex items-center space-x-4">
-                    <button className="flex justify-center items-center w-full text-gray-900 px-4 py-3 rounded-md focus:outline-none">
+                    {/* <button className="flex justify-center items-center w-full text-gray-900 px-4 py-3 rounded-md focus:outline-none">
                       <svg
                         className="w-6 h-6 mr-3"
                         fill="none"
@@ -184,8 +203,11 @@ const EditBook = () => {
                         ></path>
                       </svg>{" "}
                       Cancel
-                    </button>
-                    <button className="bg-blue-500 disabled:bg-blue-300 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none">
+                    </button> */}
+                    <button
+                      disabled={disable ? true : false}
+                      className="bg-blue-500 disabled:bg-blue-300 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none"
+                    >
                       <>
                         {isLoading
                           ? "uploading"

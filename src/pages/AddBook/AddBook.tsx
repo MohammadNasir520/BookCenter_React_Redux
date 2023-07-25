@@ -57,10 +57,7 @@ const AddBook = () => {
         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
           <div className="relative px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-lg sm:p-10">
             <div className="max-w-md mx-auto">
-              <div className="flex items-center space-x-5">
-                <div className="h-14 w-14 bg-yellow-200 rounded-full flex flex-shrink-0 justify-center items-center text-yellow-500 text-2xl font-mono">
-                  i
-                </div>
+              <div className="flex items-center space-x-5  justify-center">
                 <div className="block pl-2 font-semibold text-xl self-start text-gray-700">
                   <h2 className="leading-relaxed">Upload a book</h2>
                   <p className="text-sm text-gray-500 font-normal leading-relaxed">
@@ -161,7 +158,7 @@ const AddBook = () => {
                   </div>
 
                   <div className="pt-2 flex items-center space-x-4">
-                    <button className="flex justify-center items-center w-full text-gray-900 px-4 py-3 rounded-md focus:outline-none">
+                    {/* <button className="flex justify-center items-center w-full text-gray-900 px-4 py-3 rounded-md focus:outline-none">
                       <svg
                         className="w-6 h-6 mr-3"
                         fill="none"
@@ -177,14 +174,14 @@ const AddBook = () => {
                         ></path>
                       </svg>{" "}
                       Cancel
-                    </button>
+                    </button> */}
                     <button className="bg-blue-500 disabled:bg-blue-300 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none">
                       <>
                         {isLoading
                           ? "uploading"
                           : isSuccess
-                          ? "created"
-                          : "create"}
+                          ? "uploaded"
+                          : "upload"}
                       </>
                     </button>
                   </div>

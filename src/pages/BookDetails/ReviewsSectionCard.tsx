@@ -19,6 +19,7 @@ const ReviewsSection = () => {
 
   const [postBookComment, { data }] = usePostBookReviewMutation();
   console.log("post review", data);
+
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
@@ -40,7 +41,8 @@ const ReviewsSection = () => {
     const commentData: any = await postBookComment(options);
     console.log("comment", commentData);
     if (commentData?.data?.success) {
-      return toast.success("your review added");
+      toast.success("your review added");
+      event.target.reset();
     }
   };
   console.log("post revview2");

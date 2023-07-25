@@ -6,8 +6,31 @@ import {
 } from "../../Redux/api/booksApi/booksApi";
 import { toast } from "react-hot-toast";
 import { useAppSelector } from "../../Redux/hook";
+import { useAddToWishListMutation } from "../../Redux/api/wishListApi/wishListApi";
 
 const BookDetailsCard = () => {
+  const userId = useAppSelector((state) => state.user.user?._id);
+
+  const [addToWishList, { isSuccess: addTowishlist, error: addWishError }] =
+    useAddToWishListMutation();
+  console.log("adwisherror", addWishError);
+
+  if (addTowishlist) {
+    toast.success("added to wishlist");
+  }
+  if (addWishError) {
+    toast.error("this book already added to your wishlist");
+  }
+  const handleAddToWishList = (bookId: string | undefined) => {
+    const options = {
+      wishListData: {
+        user: userId,
+        book: bookId,
+      },
+    };
+    console.log("options", options);
+    addToWishList(options);
+  };
   const loggedInUserId = useAppSelector((state) => state.user.user?._id);
 
   const { id } = useParams();
@@ -111,16 +134,13 @@ const BookDetailsCard = () => {
               {data?.data?.publicationDate}
             </h3>
           </div>
-          {/* <p className="mb-8 block font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
-            Like so many organizations these days, Autodesk is a company in
-            transition. It was until recently a traditional boxed software
-            company selling licenses. Yet its own business model disruption is
-            only part of the story
-          </p> */}
 
           <div className="flex">
             <a className="inline-block" href="#">
               <button
+                onClick={() => {
+                  handleAddToWishList(data?.data?._id);
+                }}
                 className="flex select-none items-center gap-2 rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 type="button"
               >

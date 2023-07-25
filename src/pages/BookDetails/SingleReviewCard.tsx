@@ -13,11 +13,11 @@ const SingleReviewCard = ({ review }: IProps) => {
         {/* reviews */}
         <div className="flex-col w-full py-4 mx-auto mt-3 bg-white border-b-2 border-r-2 border-gray-200 sm:px-4 sm:py-4 md:px-4 sm:rounded-lg sm:shadow-sm md:w-2/3">
           <div className="flex flex-row md-10">
-            <img
+            {/* <img
               className="w-12 h-12 border-2 border-gray-300 rounded-full"
               alt="Anonymous's avatar"
               src={image}
-            />
+            /> */}
             <div className="flex-col mt-1">
               <div className="flex items-center flex-1 px-4 font-bold leading-tight">
                 {fullname}
