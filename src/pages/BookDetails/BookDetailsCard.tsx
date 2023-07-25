@@ -147,7 +147,8 @@ const BookDetailsCard = () => {
                 + wishList
               </button>
             </a>
-            {isUserMatch && loggedInUserId && (
+            {/* isUserMatch && */}
+            {loggedInUserId && (
               <>
                 <Link to={`/editbook/${id}`}>
                   <button

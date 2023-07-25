@@ -23,7 +23,7 @@ const Home = () => {
   return (
     <div>
       <div className="grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3  mx-5 place-items-center mt-3">
-        {data?.data?.map((book: IBook) => (
+        {data?.data?.slice(0, 10).map((book: IBook) => (
           <BookCard key={book._id} book={book}></BookCard>
         ))}
       </div>
