@@ -5,7 +5,7 @@ interface IProps {
 }
 const SingleReviewCard = ({ review }: IProps) => {
   console.log("review", review);
-  const { name, image } = review?.user;
+  const { name } = review?.user;
   const fullname = name.firstName + " " + name.lastName;
   return (
     <div>
