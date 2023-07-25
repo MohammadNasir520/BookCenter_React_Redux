@@ -3,7 +3,7 @@ import { IButton, IUser } from "../globalInterfaces/globalInterfaces";
 
 import { IBook } from "../globalInterfaces/book.interface";
 
-interface IWishListBook {
+export interface IWishListBook {
   map(
     arg0: (book: IWishListBook) => import("react/jsx-runtime").JSX.Element
   ): import("react").ReactNode;
@@ -17,12 +17,11 @@ interface BooksTableProps {
   wishLists: {
     data: IWishListBook;
   };
+  action: any;
+  undo: any;
 }
 
-const BooksTable = ({ button, wishLists }: BooksTableProps) => {
-  const handleAddToReadList = (book: IWishListBook) => {
-    console.log(book);
-  };
+const BooksTable = ({ button, wishLists, action, undo }: BooksTableProps) => {
   const handleDelete = () => {};
 
   return (
@@ -102,7 +101,7 @@ const BooksTable = ({ button, wishLists }: BooksTableProps) => {
               {/*............................. add button............................. */}
               <td className="md:px-6 py-4 cursor-pointer ">
                 <div
-                  onClick={() => handleAddToReadList(book)}
+                  onClick={() => action(book)}
                   className="flex text-center font-bold bg-green-400"
                 >
                   <img className="h-6 w-6" src={button.img} alt="" />
