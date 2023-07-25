@@ -7,8 +7,11 @@ import {
 } from "../../Redux/api/booksApi/booksApi";
 import { useState } from "react";
 import FullPageSpinner from "../../shared/FullPageSpinner";
+import { useAppSelector } from "../../Redux/hook";
 
 const AllBooks = () => {
+  const { accessToken, user } = useAppSelector((state) => state.user);
+
   const [searchText, setSearchText] = useState("");
   const [genre, setGenre] = useState("");
   const [publicationYear, setpublicationYear] = useState("");
@@ -153,14 +156,16 @@ const AllBooks = () => {
         </div>
         <div className="space-y-6 ml-3 flex justify-center ">
           <div>
-            <Link to={"/addbook"}>
-              <button
-                className="middle mt-6 mx-2  none center rounded-lg bg-green-800 py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-500/20 transition-all hover:shadow-lg hover:shadow-gray-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                data-ripple-light="true"
-              >
-                Add Book
-              </button>
-            </Link>
+            {accessToken && user && (
+              <Link to={"/addbook"}>
+                <button
+                  className="middle mt-6 mx-2  none center rounded-lg bg-green-800 py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-500/20 transition-all hover:shadow-lg hover:shadow-gray-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                  data-ripple-light="true"
+                >
+                  Add Book
+                </button>
+              </Link>
+            )}
           </div>
           <div>
             {searchText || genre || publicationYear ? (
