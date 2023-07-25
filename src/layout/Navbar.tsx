@@ -108,7 +108,7 @@ const Navbar = () => {
           <li>
             <NavLink
               onClick={() => setMenuOpen(false)}
-              to={"/wishlist"}
+              to={`/wishlist/${user?._id}`}
               className={({ isActive }) =>
                 ` ${
                   isActive

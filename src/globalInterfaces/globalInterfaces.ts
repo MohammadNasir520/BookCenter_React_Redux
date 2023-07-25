@@ -1,4 +1,4 @@
-interface IUser {
+export interface IUser {
   email: string;
   role: "user" | "admin";
   password: string;
@@ -9,7 +9,7 @@ interface IUser {
   image: string;
 }
 
-interface IReview {
+export interface IReview {
   book: string;
   user: IUser;
   reviewText: string;

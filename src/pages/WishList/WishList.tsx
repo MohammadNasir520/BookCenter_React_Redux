@@ -3,11 +3,20 @@ import BooksTable from "../../components/BooksTable";
 import addButtonPic from "../../assets/add-button.png";
 import undoButtonPic from "../../assets/cancel.png";
 import { IButton } from "../../globalInterfaces/globalInterfaces";
+import { useGetAllWishListsQuery } from "../../Redux/api/wishListApi/wishListApi";
+import { useParams } from "react-router-dom";
 
 const WishList = () => {
+  const { id } = useParams();
   const [activeTabNo, setActiveTabNo] = useState(1);
+
   const activeTabClass = `bg-indigo-500 text-white `;
   const nonActiveTabClass = ` bg-white text-indigo-500 `;
+
+  let options = {
+    id: id,
+    status: "",
+  };
 
   let button = {
     th: "",
@@ -34,9 +43,16 @@ const WishList = () => {
     button = ReadListButton;
   } else if (activeTabNo === 2) {
     button = FinishedButton;
+    options.status = "reading";
   } else if (activeTabNo === 3) {
     button = UndoButton;
+    options.status = "finished";
   }
+
+  const { data: wishLists } = useGetAllWishListsQuery(options, {
+    refetchOnMountOrArgChange: true,
+  });
+  console.log("wishlist data", wishLists);
   return (
     <div>
       <div>
@@ -67,7 +83,7 @@ const WishList = () => {
           </button>
         </div>
         <div className="shadow-xl border border-gray-100 font-light lg:p-8 rounded text-gray-500 bg-white mt-6">
-          {<BooksTable button={button}></BooksTable>}
+          {<BooksTable button={button} wishLists={wishLists}></BooksTable>}
         </div>
       </div>
     </div>

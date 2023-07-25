@@ -1,42 +1,29 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import addButtonPic from "../assets/add-button.png";
-import { IButton } from "../globalInterfaces/globalInterfaces";
+import { IButton, IUser } from "../globalInterfaces/globalInterfaces";
 
+import { IBook } from "../globalInterfaces/book.interface";
+
+interface IWishListBook {
+  map(
+    arg0: (book: IWishListBook) => import("react/jsx-runtime").JSX.Element
+  ): import("react").ReactNode;
+  _id: string;
+  status: string;
+  book: IBook;
+  user: IUser;
+}
 interface BooksTableProps {
   button: IButton;
+  wishLists: {
+    data: IWishListBook;
+  };
 }
 
-const BooksTable = ({ button }: BooksTableProps) => {
-  const books = [
-    {
-      author: "Dracula",
-      imageUrl: "https://pictures.abebooks.com/inventory/31367552755.jpg",
-      email: "Author",
-      role: "reading",
-      district: "sirajgonj",
-      batch: "2020",
-    },
-    {
-      author: "Dracula",
-      imageUrl: "https://pictures.abebooks.com/inventory/31367552755.jpg",
-      email: "Author",
-      role: "not read",
-      district: "sirajgonj",
-      batch: "2020",
-    },
-    {
-      author: "Dracula",
-      imageUrl: "https://pictures.abebooks.com/inventory/31367552755.jpg",
-      email: "Author",
-      role: "Finished",
-      district: "sirajgonj",
-      batch: "2020",
-    },
-  ];
-
+const BooksTable = ({ button, wishLists }: BooksTableProps) => {
+  const handleAddToReadList = (book: IWishListBook) => {
+    console.log(book);
+  };
   const handleDelete = () => {};
-  const handleApprove = () => {};
 
   return (
     // <!-- component -->
@@ -65,43 +52,45 @@ const BooksTable = ({ button }: BooksTableProps) => {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-          {books.map((user) => (
-            <tr className="hover:bg-gray-50">
+          {wishLists?.data?.map((book: IWishListBook) => (
+            <tr key={book._id} className="hover:bg-gray-50">
               <th className="flex gap-3 px-6 py-4 font-normal text-gray-900">
                 <div className="h-10 w-10">
                   <img
                     className="h-full w-full  object-cover object-center"
-                    src={user.imageUrl}
+                    src={book?.book?.image}
                     alt=""
                   />
                   {/* <span className="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span> */}
                 </div>
                 <div className="text-sm">
-                  <div className="font-medium text-gray-700">{user.author}</div>
-                  <div className="text-gray-400">{user?.email}</div>
+                  <div className="font-medium text-gray-700">
+                    {book?.book?.title}
+                  </div>
+                  <div className="text-gray-400">{book?.book?.author}</div>
                 </div>
               </th>
 
               {/* batch */}
               <td className="md:px-6 py-4">
                 <span className="inline-flex items-center gap-1    py-1  font-semibold">
-                  {user?.batch}
+                  {book?.book?.genre}
                 </span>
               </td>
-              <td className="md:px-6 py-4">{user?.district}</td>
+              <td className="md:px-6 py-4">{book?.book?.publicationDate}</td>
 
               <td className="md:px-6 py-4">
                 <div className="flex gap-2">
                   <span className="inline-flex items-center text-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600">
-                    {user.role}
+                    {book?.status}
                   </span>
 
                   {/* approve button */}
-                  {user.role === "requested" && (
+                  {/* {book.role === "requested" && (
                     <span className=" cursor-pointer inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs font-bold text-green-500">
                       approve
                     </span>
-                  )}
+                  )} */}
                   {/* <span
                                             className="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2 py-1 text-xs font-semibold text-violet-600"
                                         >
@@ -111,8 +100,11 @@ const BooksTable = ({ button }: BooksTableProps) => {
               </td>
 
               {/*............................. add button............................. */}
-              <td className="md:px-6 py-4 cursor-pointer">
-                <div className="flex text-center font-bold">
+              <td className="md:px-6 py-4 cursor-pointer ">
+                <div
+                  onClick={() => handleAddToReadList(book)}
+                  className="flex text-center font-bold bg-green-400"
+                >
                   <img className="h-6 w-6" src={button.img} alt="" />
                   <p>{button.title}</p>
                 </div>

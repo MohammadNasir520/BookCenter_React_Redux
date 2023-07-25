@@ -46,7 +46,7 @@ export const router = createBrowserRouter([
         element: <EditBook></EditBook>,
       },
       {
-        path: "/wishlist",
+        path: "/wishlist/:id",
         element: <WishList></WishList>,
       },
     ],

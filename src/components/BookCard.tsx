@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { IBook } from "../globalInterfaces/book.interface";
+import { useAddToWishListMutation } from "../Redux/api/wishListApi/wishListApi";
+import { useAppSelector } from "../Redux/hook";
 
 interface IProps {
   book: IBook;
@@ -8,10 +10,27 @@ interface IProps {
 const BookCard = ({ book }: IProps) => {
   const { title, author, genre, image, publicationDate, _id } = book;
   console.log(publicationDate);
+  const userId = useAppSelector((state) => state.user.user?._id);
+
+  const [addToWishList, { data, isLoading, isError, isSuccess, error }] =
+    useAddToWishListMutation();
+  console.log(data, isLoading, isError, isSuccess, error);
+  const handleAddToWishList = (bookId: string | undefined) => {
+    console.log("add buton");
+    const options = {
+      wishListData: {
+        user: userId,
+        book: bookId,
+      },
+    };
+    console.log("options", options);
+    addToWishList(options);
+  };
+
   return (
     <div>
-      <Link to={`/bookdetails/${_id}`}>
-        <div className="my-2  relative">
+      <div className="my-2  relative">
+        <Link to={`/bookdetails/${_id}`}>
           <div className="relative flex min-w-[350px] max-w-[20rem] h-[550px] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
             <div className="relative m-0 p-4 pb-1 flex justify-center overflow-hidden rounded-none bg-transparent bg-clip-border text-gray-700 shadow-none">
               <img
@@ -90,19 +109,20 @@ const BookCard = ({ book }: IProps) => {
                   {publicationDate.toString()}
                 </h3>
               </div>
-              <div className="flex  absolute bottom-1 right-2 items-center justify-between p-1">
-                <button
-                  className="flex  select-none items-center gap-2 rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-                  type="button"
-                  data-ripple-dark="true"
-                >
-                  + WishList
-                </button>
-              </div>
             </div>
           </div>
+        </Link>
+        <div className="flex  absolute bottom-1 right-2 items-center justify-between p-1">
+          <button
+            onClick={() => handleAddToWishList(_id)}
+            className="flex  select-none items-center gap-2 rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            type="button"
+            data-ripple-dark="true"
+          >
+            + WishList
+          </button>
         </div>
-      </Link>
+      </div>
     </div>
   );
 };
