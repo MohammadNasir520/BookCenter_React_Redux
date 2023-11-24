@@ -1,8 +1,8 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../../Redux/api/userApi/userApi";
-import { toast } from "react-hot-toast";
-import { useAppDispatch } from "../../Redux/hook";
-import { setUser } from "../../Redux/features/userSlice";
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLoginMutation } from '../../Redux/api/userApi/userApi';
+import { toast } from 'react-hot-toast';
+import { useAppDispatch } from '../../Redux/hook';
+import { setUser } from '../../Redux/features/userSlice';
 
 interface ErrorResponse {
   data: {
@@ -20,7 +20,11 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handleSubmit = async (event: any) => {
+  const location = useLocation();
+  // console.log(location);
+  const form = location.state.pathname || '/';
+
+  const handleLogin = async (event: any) => {
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
@@ -33,15 +37,15 @@ const Login = () => {
       },
     };
     const loggedInData: any = await login(options);
-    console.log("logindata", loggedInData?.data?.data);
+    console.log('logindata', loggedInData?.data?.data);
 
     if (loggedInData?.data?.success === true) {
       form.reset();
 
-      localStorage.setItem("user", JSON.stringify(loggedInData.data.data));
+      localStorage.setItem('user', JSON.stringify(loggedInData.data.data));
       dispatch(setUser(loggedInData.data.data));
-      toast.success("logged in successful");
-      navigate("/");
+      toast.success('logged in successful');
+      navigate(form);
     }
   };
   return (
@@ -49,12 +53,12 @@ const Login = () => {
       <div className="mx-auto max-w-screen-xl  px-4 py-16 sm:px-6 lg:px-8  ">
         <div className="mx-auto max-w-lg shadow-xl bg-gray-400  shadow-cyan-100">
           <form
-            onSubmit={handleSubmit}
+            onSubmit={handleLogin}
             action=""
             className="mb-0 mt-6 space-y-1 rounded-lg p-2 shadow:p-6 lg:p-8 text-white"
           >
             <p className="text-center text-lg font-medium ">
-              {" "}
+              {' '}
               SignIn to Your account
             </p>
 
@@ -75,7 +79,7 @@ const Login = () => {
 
             <div className="mb-2">
               <label htmlFor="password" className=" ">
-                {" "}
+                {' '}
                 Password
               </label>
               <div className="relative">
@@ -99,7 +103,7 @@ const Login = () => {
             <p className="text-center text-lg text-white">
               No account?
               <Link
-                to={"/signup"}
+                to={'/signup'}
                 className="underline  bg-transparent text-zinc-200 mx-2 font-bold "
               >
                 SignUp
