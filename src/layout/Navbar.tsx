@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../Redux/hook";
-import { setUser } from "../Redux/features/userSlice";
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../Redux/hook';
+import { setUser } from '../Redux/features/userSlice';
 
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
 
-  const { accessToken, user } = useAppSelector((state) => state.user);
+  const { accessToken, user } = useAppSelector(state => state.user);
 
   const dispatch = useAppDispatch();
 
@@ -20,22 +20,22 @@ const Navbar = () => {
   };
 
   const NavFont =
-    "mr-4 block cursor-pointer py-1.5 font-sans text-xl font-medium leading-relaxed  antialiased";
+    'mr-4 block cursor-pointer py-1.5 font-sans text-xl font-medium leading-relaxed  antialiased';
 
   const navItems = (
     <>
       <li>
         <NavLink
           onClick={() => setMenuOpen(false)}
-          to={"/"}
+          to={'/'}
           className={({ isActive }) =>
             ` ${
               isActive
-                ? "text-blue-700 font-bold p-4"
+                ? 'text-blue-700 font-bold p-4'
                 : `${
                     isMenuOpen
-                      ? "block p-4  text-sm font-semibold text-inherit hover:bg-blue-50  rounded"
-                      : "text-sm text-inherit hover:text-gray-500 "
+                      ? 'block p-4  text-sm font-semibold text-inherit hover:bg-blue-50  rounded'
+                      : 'text-sm text-inherit hover:text-gray-500 '
                   }  `
             } ${NavFont}`
           }
@@ -47,15 +47,15 @@ const Navbar = () => {
       <li>
         <NavLink
           onClick={() => setMenuOpen(false)}
-          to={"/allBooks"}
+          to={'/allBooks'}
           className={({ isActive }) =>
             ` ${
               isActive
-                ? "text-blue-700 font-bold p-4"
+                ? 'text-blue-700 font-bold p-4'
                 : `${
                     isMenuOpen
-                      ? "block p-4 text-sm font-semibold text-inherit hover:bg-blue-50  rounded"
-                      : "text-sm text-inherit hover:text-gray-500 "
+                      ? 'block p-4 text-sm font-semibold text-inherit hover:bg-blue-50  rounded'
+                      : 'text-sm text-inherit hover:text-gray-500 '
                   }  `
             } ${NavFont}`
           }
@@ -64,40 +64,20 @@ const Navbar = () => {
         </NavLink>
       </li>
 
-      {/* <li>
-        <NavLink
-          onClick={() => setMenuOpen(false)}
-          to="/dashboard"
-          className={({ isActive }) =>
-            ` ${
-              isActive
-                ? "text-blue-700 font-bold p-4"
-                : `${
-                    isMenuOpen
-                      ? "block p-4 text-sm font-semibold text-inherit hover:bg-blue-50  rounded"
-                      : "text-sm text-inherit hover:text-gray-500 "
-                  }  `
-            } ${NavFont}`
-          }
-        >
-          DashBoard
-        </NavLink>
-      </li> */}
-
-      {accessToken && user && (
+      {
         <>
           <li>
             <NavLink
               onClick={() => setMenuOpen(false)}
-              to={"/addbook"}
+              to={'/addbook'}
               className={({ isActive }) =>
                 ` ${
                   isActive
-                    ? "text-blue-700 font-bold p-4"
+                    ? 'text-blue-700 font-bold p-4'
                     : `${
                         isMenuOpen
-                          ? "block p-4 text-sm font-semibold text-inherit hover:bg-blue-50  rounded"
-                          : "text-sm text-inherit hover:text-gray-500 "
+                          ? 'block p-4 text-sm font-semibold text-inherit hover:bg-blue-50  rounded'
+                          : 'text-sm text-inherit hover:text-gray-500 '
                       }  `
                 } ${NavFont}`
               }
@@ -112,11 +92,11 @@ const Navbar = () => {
               className={({ isActive }) =>
                 ` ${
                   isActive
-                    ? "text-blue-700 font-bold p-4"
+                    ? 'text-blue-700 font-bold p-4'
                     : `${
                         isMenuOpen
-                          ? "block p-4 text-sm font-semibold text-inherit hover:bg-blue-50  rounded"
-                          : "text-sm text-inherit hover:text-gray-500 "
+                          ? 'block p-4 text-sm font-semibold text-inherit hover:bg-blue-50  rounded'
+                          : 'text-sm text-inherit hover:text-gray-500 '
                       }  `
                 } ${NavFont}`
               }
@@ -125,7 +105,7 @@ const Navbar = () => {
             </NavLink>
           </li>
         </>
-      )}
+      }
     </>
   );
 
@@ -136,31 +116,31 @@ const Navbar = () => {
           onClick={handleSignout}
           className={`${
             isMenuOpen
-              ? "block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700  rounded-xl"
-              : "hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200 "
+              ? 'block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700  rounded-xl'
+              : 'hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200 '
           }`}
-          to={"/"}
+          to={'/'}
         >
           SignOut
         </NavLink>
       ) : (
         <>
           <NavLink
-            to={"/signin"}
+            to={'/signin'}
             className={`${
               isMenuOpen
-                ? "block px-4 py-3 mb-3  text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl"
-                : "hidden  lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200 "
+                ? 'block px-4 py-3 mb-3  text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl'
+                : 'hidden  lg:inline-block lg:ml-auto lg:mr-3 py-2 px-6 bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold  rounded-xl transition duration-200 '
             }`}
           >
             Sign In
           </NavLink>
           <NavLink
-            to={"/signup"}
+            to={'/signup'}
             className={`${
               isMenuOpen
-                ? "block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700  rounded-xl"
-                : "hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200 "
+                ? 'block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700  rounded-xl'
+                : 'hidden lg:inline-block py-2 px-6 bg-blue-500 hover:bg-blue-600 text-sm text-white font-bold rounded-xl transition duration-200 '
             }`}
           >
             SignUp
@@ -183,9 +163,9 @@ const Navbar = () => {
           <div className="flex space-x-5">
             <NavLink
               className="text-3xl font-bold leading-none "
-              to={""}
+              to={''}
             ></NavLink>
-            <NavLink className="text-3xl font-bold leading-none " to={""}>
+            <NavLink className="text-3xl font-bold leading-none " to={''}>
               <h4 className="mb-2 block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
                 Book Center
               </h4>
@@ -194,7 +174,7 @@ const Navbar = () => {
 
           <div
             onClick={() => setMenuOpen(!isMenuOpen)}
-            className={`${isMenuOpen ? "hidden" : "block"}  lg:hidden`}
+            className={`${isMenuOpen ? 'hidden' : 'block'}  lg:hidden`}
           >
             <button className="navbar-burger flex items-center text-blue-600 p-3">
               <svg
@@ -213,14 +193,14 @@ const Navbar = () => {
           <div className="hidden lg:block">{signOption}</div>
         </nav>
         <div
-          className={`navbar-menu relative z-50  ${isMenuOpen ? "" : "hidden"}`}
+          className={`navbar-menu relative z-50  ${isMenuOpen ? '' : 'hidden'}`}
         >
           <div className="navbar-backdrop fixed inset-0 bg-gray-800 opacity-25"></div>
           <nav className="fixed top-0 left-0 bottom-0 flex flex-col w-5/6 max-w-sm py-6 px-6 bg-white border-r overflow-y-auto ">
             <div className="flex items-center mb-8">
               <NavLink
                 className="mr-auto text-3xl font-bold leading-none"
-                to={""}
+                to={''}
               >
                 <svg className="h-12" viewBox="0 0 10240 10240">
                   <path

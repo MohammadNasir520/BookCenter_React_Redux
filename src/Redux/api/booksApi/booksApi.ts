@@ -2,6 +2,7 @@ import { api } from "../apiSlice";
 
 const booksApi = api.injectEndpoints({
   endpoints: (builder) => ({
+
     addBook: builder.mutation({
       query: ({ data }) => ({
         url: `/books/create-book`,
@@ -9,6 +10,7 @@ const booksApi = api.injectEndpoints({
         body: data,
       }),
     }),
+
     deleteBook: builder.mutation({
       query: (id) => ({
         url: `/books/${id}`,
@@ -28,7 +30,15 @@ const booksApi = api.injectEndpoints({
       providesTags: ["updateBook"],
     }),
     getBooksBySearchAndFilter: builder.query({
-      query: ({ searchText, genre, publicationYear }) => {
+      query: ({
+        searchText,
+        genre,
+        publicationYear,
+      }: {
+        searchText: string;
+        genre: string;
+        publicationYear: string;
+      }) => {
         let url = `/books/?searchTerm=${searchText}`;
         if (genre) {
           url = url + `&genre=${genre}`;
