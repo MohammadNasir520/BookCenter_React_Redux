@@ -18,8 +18,8 @@ const AllBooks = () => {
 
   const { data } = useGetBooksBySearchAndFilterQuery({
     searchText,
-    genre: genre || undefined,
-    publicationYear: publicationYear || undefined,
+    genre: genre,
+    publicationYear: publicationYear,
   });
 
   const { data: books, isLoading } = useGetBooksQuery(undefined);
