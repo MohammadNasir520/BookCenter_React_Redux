@@ -22,7 +22,7 @@ const Login = () => {
 
   const location = useLocation();
 
-  const form = location.state.pathname || '/';
+  const from = location?.state?.pathname || '/';
 
   const handleLogin = async (event: any) => {
     event.preventDefault();
@@ -44,7 +44,7 @@ const Login = () => {
       localStorage.setItem('user', JSON.stringify(loggedInData.data.data));
       dispatch(setUser(loggedInData.data.data));
       toast.success('logged in successful');
-      navigate(form);
+      navigate(from);
     }
   };
   return (
