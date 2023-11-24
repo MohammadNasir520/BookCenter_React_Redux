@@ -1,35 +1,33 @@
 /* eslint-disable react/prop-types */
 
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
-import SingleReviewCard from "./SingleReviewCard";
+import SingleReviewCard from './SingleReviewCard';
 import {
   useGetSingleReviewQuery,
   usePostBookReviewMutation,
-} from "../../Redux/api/booksApi/booksApi";
-import { useAppSelector } from "../../Redux/hook";
-import { toast } from "react-hot-toast";
+} from '../../Redux/api/booksApi/booksApi';
+import { useAppSelector } from '../../Redux/hook';
+import { toast } from 'react-hot-toast';
 
 const ReviewsSection = () => {
   const { id } = useParams();
-  const { user } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector(state => state.user);
 
   const { data: reviews } = useGetSingleReviewQuery(id);
-  console.log("review", reviews?.data);
 
   const [postBookComment, { data }] = usePostBookReviewMutation();
-  console.log("post review", data);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
     if (!user) {
-      return toast.error("please signIn to review");
+      return toast.error('please signIn to review');
     }
 
     const reviewText = event.target.elements.review.value;
     if (!reviewText) {
-      return toast.error("please type your review to review");
+      return toast.error('please type your review to review');
     }
     const options = {
       data: {
@@ -39,13 +37,13 @@ const ReviewsSection = () => {
       },
     };
     const commentData: any = await postBookComment(options);
-    console.log("comment", commentData);
+
     if (commentData?.data?.success) {
-      toast.success("your review added");
+      toast.success('your review added');
       event.target.reset();
     }
   };
-  console.log("post revview2");
+
   return (
     <div className="mt-7">
       {/* create reviews */}

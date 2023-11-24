@@ -1,12 +1,11 @@
-import { IReview } from "../../globalInterfaces/globalInterfaces";
+import { IReview } from '../../globalInterfaces/globalInterfaces';
 
 interface IProps {
   review: IReview;
 }
 const SingleReviewCard = ({ review }: IProps) => {
-  console.log("review", review);
   const { name } = review?.user;
-  const fullname = name.firstName + " " + name.lastName;
+  const fullname = name.firstName + ' ' + name.lastName;
   return (
     <div>
       <div className="mt-5">

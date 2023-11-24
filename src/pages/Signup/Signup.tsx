@@ -1,11 +1,11 @@
-import { toast } from "react-hot-toast";
-import { useState } from "react";
-import { useSignupMutation } from "../../Redux/api/userApi/userApi";
-import { useNavigate } from "react-router-dom";
+import { toast } from 'react-hot-toast';
+import { useState } from 'react';
+import { useSignupMutation } from '../../Redux/api/userApi/userApi';
+import { useNavigate } from 'react-router-dom';
 const Signup = () => {
-  const [error, setError] = useState("");
-  const [signup, { data, isError, isLoading, isSuccess }] = useSignupMutation();
-  console.log(data, isLoading, isError, isSuccess);
+  const [error, setError] = useState('');
+  const [signup] = useSignupMutation();
+
   const navigate = useNavigate();
 
   const handleSubmit = async (event: any) => {
@@ -23,22 +23,22 @@ const Signup = () => {
         },
         email: email as string,
         password: password as string,
-        image: "image",
+        image: 'image',
       },
     };
 
     const signedUp: any = await signup(options);
-    console.log("signedUp", signedUp);
+
     if (signedUp?.data?.success === true) {
-      toast.success("account creation successful please login");
+      toast.success('account creation successful please login');
       event.target.reset();
-      setError(" ");
-      navigate("/signIn");
+      setError(' ');
+      navigate('/signIn');
     } else if (signedUp.error) {
       setError(signedUp.error.data.message);
     }
   };
-  console.log(error);
+
   return (
     <div>
       <script

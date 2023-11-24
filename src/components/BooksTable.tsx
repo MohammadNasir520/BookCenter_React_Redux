@@ -1,14 +1,14 @@
-import { Link } from "react-router-dom";
-import { IButton, IUser } from "../globalInterfaces/globalInterfaces";
+import { Link } from 'react-router-dom';
+import { IButton, IUser } from '../globalInterfaces/globalInterfaces';
 
-import { IBook } from "../globalInterfaces/book.interface";
-import { useRemoveFromWishListMutation } from "../Redux/api/wishListApi/wishListApi";
-import { toast } from "react-hot-toast";
+import { IBook } from '../globalInterfaces/book.interface';
+import { useRemoveFromWishListMutation } from '../Redux/api/wishListApi/wishListApi';
+import { toast } from 'react-hot-toast';
 
 export interface IWishListBook {
   map(
-    arg0: (book: IWishListBook) => import("react/jsx-runtime").JSX.Element
-  ): import("react").ReactNode;
+    arg0: (book: IWishListBook) => import('react/jsx-runtime').JSX.Element
+  ): import('react').ReactNode;
   _id: string;
   status: string;
   book: IBook;
@@ -27,11 +27,10 @@ const BooksTable = ({ button, wishLists, action }: BooksTableProps) => {
   const [removeFromWishList, { data, error, isSuccess }] =
     useRemoveFromWishListMutation();
   if (data?.success) {
-    toast.success("your book is deleted from wishList");
+    toast.success('your book is deleted from wishList');
   }
-  console.log("remove", data, error, isSuccess);
+
   const handleRemoveFromWishList = (book: IWishListBook) => {
-    console.log(book);
     removeFromWishList(book?._id);
   };
 
@@ -126,7 +125,7 @@ const BooksTable = ({ button, wishLists, action }: BooksTableProps) => {
                   onClick={() => handleRemoveFromWishList(book)}
                   className="flex  gap-4"
                 >
-                  <Link x-data="{ tooltip: 'Delete' }" to={""}>
+                  <Link x-data="{ tooltip: 'Delete' }" to={''}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"

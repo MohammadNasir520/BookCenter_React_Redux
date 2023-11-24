@@ -4,7 +4,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const user = useAppSelector(state => state.user.user);
-  console.log('user', user);
+  console.log(user);
 
   const location = useLocation();
   if (user) {

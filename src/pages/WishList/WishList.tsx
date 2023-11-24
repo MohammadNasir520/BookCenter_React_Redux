@@ -1,97 +1,91 @@
-import { useState } from "react";
-import BooksTable, { IWishListBook } from "../../components/BooksTable";
-import addButtonPic from "../../assets/add-button.png";
-import undoButtonPic from "../../assets/cancel.png";
-import { IButton } from "../../globalInterfaces/globalInterfaces";
+import { useState } from 'react';
+import BooksTable, { IWishListBook } from '../../components/BooksTable';
+import addButtonPic from '../../assets/add-button.png';
+import undoButtonPic from '../../assets/cancel.png';
+import { IButton } from '../../globalInterfaces/globalInterfaces';
 import {
   useAddReadingListMutation,
   useGetAllWishListsQuery,
-} from "../../Redux/api/wishListApi/wishListApi";
-import { useParams } from "react-router-dom";
-import { toast } from "react-hot-toast";
+} from '../../Redux/api/wishListApi/wishListApi';
+import { useParams } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const WishList = () => {
   const { id } = useParams();
   const [activeTabNo, setActiveTabNo] = useState(1);
 
-  const [addReadingList, { data, isError, isSuccess, error }] =
-    useAddReadingListMutation();
-
-  console.log(data, isError, isSuccess, error);
+  const [addReadingList] = useAddReadingListMutation();
 
   const activeTabClass = `bg-indigo-500 text-white `;
   const nonActiveTabClass = ` bg-white text-indigo-500 `;
 
   let options = {
     id: id,
-    status: "",
+    status: '',
   };
 
   let button = {
-    th: "",
-    title: "",
-    img: "",
+    th: '',
+    title: '',
+    img: '',
   };
   const ReadListButton: IButton = {
-    th: "Add to ReadList",
-    title: "ReadList",
+    th: 'Add to ReadList',
+    title: 'ReadList',
     img: addButtonPic,
   };
   const FinishedButton: IButton = {
-    th: "Add to FinishList",
-    title: "FinishList",
+    th: 'Add to FinishList',
+    title: 'FinishList',
     img: addButtonPic,
   };
   const UndoButton: IButton = {
-    th: "Undo",
-    title: "undo",
+    th: 'Undo',
+    title: 'undo',
     img: undoButtonPic,
   };
   let action = null;
 
   const handleAddToReadList = async (book: IWishListBook) => {
-    console.log(book);
     const result: any = await addReadingList({
       id: book._id,
-      wishListUpdatedData: { status: "reading" },
+      wishListUpdatedData: { status: 'reading' },
     });
     if (result.data.success) {
-      toast.success("added to  reading list");
+      toast.success('added to  reading list');
     }
   };
   const handleAddToFinishList = async (book: IWishListBook) => {
-    console.log(book);
     const result: any = await addReadingList({
       id: book._id,
-      wishListUpdatedData: { status: "Finished" },
+      wishListUpdatedData: { status: 'Finished' },
     });
     if (result.data.success) {
-      toast.success("added to not finished list");
+      toast.success('added to not finished list');
     }
   };
   const handleUndo = async (book: IWishListBook) => {
-    console.log(book);
     const result: any = await addReadingList({
       id: book._id,
-      wishListUpdatedData: { status: "not read" },
+      wishListUpdatedData: { status: 'not read' },
     });
-    console.log("result", result);
+
     if (result.data.success) {
-      toast.success("undo from finish and added to not read list");
+      toast.success('undo from finish and added to not read list');
     }
   };
 
   if (activeTabNo === 1) {
     button = ReadListButton;
     action = handleAddToReadList;
-    options.status = "not read";
+    options.status = 'not read';
   } else if (activeTabNo === 2) {
     button = FinishedButton;
     action = handleAddToFinishList;
-    options.status = "reading";
+    options.status = 'reading';
   } else if (activeTabNo === 3) {
     button = UndoButton;
-    options.status = "Finished";
+    options.status = 'Finished';
     action = handleUndo;
   }
 
@@ -101,7 +95,7 @@ const WishList = () => {
       refetchOnMountOrArgChange: true,
     }
   );
-  console.log("wishlist data", wishLists, wishError);
+
   return (
     <div>
       <div>

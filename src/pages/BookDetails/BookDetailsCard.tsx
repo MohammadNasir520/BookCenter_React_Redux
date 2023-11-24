@@ -1,25 +1,24 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useState } from 'react';
 import {
   useDeleteBookMutation,
   useGetSingleBookQuery,
-} from "../../Redux/api/booksApi/booksApi";
-import { toast } from "react-hot-toast";
-import { useAppSelector } from "../../Redux/hook";
-import { useAddToWishListMutation } from "../../Redux/api/wishListApi/wishListApi";
+} from '../../Redux/api/booksApi/booksApi';
+import { toast } from 'react-hot-toast';
+import { useAppSelector } from '../../Redux/hook';
+import { useAddToWishListMutation } from '../../Redux/api/wishListApi/wishListApi';
 
 const BookDetailsCard = () => {
-  const userId = useAppSelector((state) => state.user.user?._id);
+  const userId = useAppSelector(state => state.user.user?._id);
 
   const [addToWishList, { isSuccess: addTowishlist, error: addWishError }] =
     useAddToWishListMutation();
-  console.log("adwisherror", addWishError);
 
   if (addTowishlist) {
-    toast.success("added to wishlist");
+    toast.success('added to wishlist');
   }
   if (addWishError) {
-    toast.error("this book already added to your wishlist");
+    toast.error('this book already added to your wishlist');
   }
   const handleAddToWishList = (bookId: string | undefined) => {
     const options = {
@@ -28,32 +27,29 @@ const BookDetailsCard = () => {
         book: bookId,
       },
     };
-    console.log("options", options);
+
     addToWishList(options);
   };
-  const loggedInUserId = useAppSelector((state) => state.user.user?._id);
+  const loggedInUserId = useAppSelector(state => state.user.user?._id);
 
   const { id } = useParams();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
 
   const { data, error, isLoading } = useGetSingleBookQuery(id);
-  console.log("singlebook", data, error, isLoading);
 
   const [deleteBook, { data: deleteData, isError, isSuccess }] =
     useDeleteBookMutation();
-  console.log("delete", deleteData, isError, isSuccess);
 
   const handleDelete = () => {
     deleteBook(id);
   };
   if (deleteData?.success === true) {
     toast.success(`${deleteData?.data?.title} is deleted`);
-    navigate("/");
+    navigate('/');
   }
 
   const isUserMatch = loggedInUserId === data?.data?.user;
-  console.log(isUserMatch, "match");
 
   return (
     <div className="w-full lg:h-[400px] flex justify-center mt-6 ">

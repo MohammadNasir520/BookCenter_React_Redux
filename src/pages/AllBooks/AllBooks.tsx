@@ -1,20 +1,20 @@
-import { Link } from "react-router-dom";
-import BookCard from "../../components/BookCard";
-import { IBook } from "../../globalInterfaces/book.interface";
+import { Link } from 'react-router-dom';
+import BookCard from '../../components/BookCard';
+import { IBook } from '../../globalInterfaces/book.interface';
 import {
   useGetBooksBySearchAndFilterQuery,
   useGetBooksQuery,
-} from "../../Redux/api/booksApi/booksApi";
-import { useState } from "react";
-import FullPageSpinner from "../../shared/FullPageSpinner";
-import { useAppSelector } from "../../Redux/hook";
+} from '../../Redux/api/booksApi/booksApi';
+import { useState } from 'react';
+import FullPageSpinner from '../../shared/FullPageSpinner';
+import { useAppSelector } from '../../Redux/hook';
 
 const AllBooks = () => {
-  const { accessToken, user } = useAppSelector((state) => state.user);
+  const { accessToken, user } = useAppSelector(state => state.user);
 
-  const [searchText, setSearchText] = useState("");
-  const [genre, setGenre] = useState("");
-  const [publicationYear, setpublicationYear] = useState("");
+  const [searchText, setSearchText] = useState('');
+  const [genre, setGenre] = useState('');
+  const [publicationYear, setpublicationYear] = useState('');
 
   const { data } = useGetBooksBySearchAndFilterQuery({
     searchText,
@@ -53,9 +53,6 @@ const AllBooks = () => {
     filteredYearFromAllBooks
   ) as string[];
 
-  console.log("year", filteredYearArrayFromallBooks);
-
-  console.log("sy", selectedGenresYear);
   const handleSearch = (event: any) => {
     event?.preventDefault();
     const searchText = event.target.searchText.value;
@@ -74,8 +71,8 @@ const AllBooks = () => {
               {/* select genre */}
               <div className="relative h-10 w-52 min-w-[200px]">
                 <select
-                  onChange={(event) => {
-                    setGenre(event.target.value), setSearchText("");
+                  onChange={event => {
+                    setGenre(event.target.value), setSearchText('');
                   }}
                   className="peer h-full w-full outline-none rounded-[3px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-red-500 focus:border-1 focus:border-gray-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
                 >
@@ -96,8 +93,8 @@ const AllBooks = () => {
               {/* select year  */}
               <div className="relative h-10 w-52 min-w-[200px]">
                 <select
-                  defaultValue={""}
-                  onChange={(event) => {
+                  defaultValue={''}
+                  onChange={event => {
                     setpublicationYear(event.target.value);
                   }}
                   className="peer h-full w-full rounded-[2px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-100 placeholder-shown:border-t-blue-gray-200 empty:!bg-red-500 focus:border-1 focus:border-gray-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
@@ -105,19 +102,19 @@ const AllBooks = () => {
                   <option disabled>year</option>
                   {filteredYearArray.length ? (
                     <>
-                      {filteredYearArray.map((value) => (
+                      {filteredYearArray.map(value => (
                         <option key={value} value={value}>
                           {value}
                         </option>
-                      ))}{" "}
+                      ))}{' '}
                     </>
                   ) : (
                     <>
-                      {filteredYearArrayFromallBooks.map((value) => (
+                      {filteredYearArrayFromallBooks.map(value => (
                         <option key={value} value={value}>
                           {value}
                         </option>
-                      ))}{" "}
+                      ))}{' '}
                     </>
                   )}
                 </select>
@@ -132,7 +129,7 @@ const AllBooks = () => {
               <div className="relative flex h-10 w-full min-w-[200px] ">
                 <input
                   value={searchText}
-                  onChange={(e) => {
+                  onChange={e => {
                     setSearchText(e.target.value);
                   }}
                   type="text"
@@ -157,7 +154,7 @@ const AllBooks = () => {
         <div className="space-y-6 ml-3 flex justify-center ">
           <div>
             {accessToken && user && (
-              <Link to={"/addbook"}>
+              <Link to={'/addbook'}>
                 <button
                   className="middle mt-6 mx-2  none center rounded-lg bg-green-800 py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-500/20 transition-all hover:shadow-lg hover:shadow-gray-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                   data-ripple-light="true"
@@ -171,7 +168,7 @@ const AllBooks = () => {
             {searchText || genre || publicationYear ? (
               <button
                 onClick={() => {
-                  setGenre(""), setpublicationYear(""), setSearchText("");
+                  setGenre(''), setpublicationYear(''), setSearchText('');
                 }}
                 className="middle none center rounded-lg bg-green-800 py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-500/20 transition-all hover:shadow-lg hover:shadow-gray-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                 data-ripple-light="true"
@@ -179,7 +176,7 @@ const AllBooks = () => {
                 clear search
               </button>
             ) : (
-              ""
+              ''
             )}
           </div>
         </div>

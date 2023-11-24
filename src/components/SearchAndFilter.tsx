@@ -1,7 +1,6 @@
 const SearchAndFilter = () => {
   const handleSearch = (event: any) => {
     event.preventDefault();
-    console.log("serch");
   };
   return (
     <div className=" mt-3 mb-8 flex justify-center  ">

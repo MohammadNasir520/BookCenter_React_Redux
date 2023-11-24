@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
-import { IBook } from "../globalInterfaces/book.interface";
-import { useAddToWishListMutation } from "../Redux/api/wishListApi/wishListApi";
-import { useAppSelector } from "../Redux/hook";
-import { toast } from "react-hot-toast";
+import { Link } from 'react-router-dom';
+import { IBook } from '../globalInterfaces/book.interface';
+import { useAddToWishListMutation } from '../Redux/api/wishListApi/wishListApi';
+import { useAppSelector } from '../Redux/hook';
+import { toast } from 'react-hot-toast';
 
 interface IProps {
   book: IBook;
@@ -11,18 +11,18 @@ interface IProps {
 const BookCard = ({ book }: IProps) => {
   const { title, author, genre, image, publicationDate, _id } = book;
 
-  const userId = useAppSelector((state) => state.user.user?._id);
+  const userId = useAppSelector(state => state.user.user?._id);
 
   const [
     addToWishList,
     { data, isLoading, isError, isSuccess, error: addWishError },
   ] = useAddToWishListMutation();
-  console.log(data, isLoading, isError, isSuccess, addWishError);
+
   if (isSuccess) {
-    toast.success("added to wishlist");
+    toast.success('added to wishlist');
   }
   if (addWishError) {
-    toast.error("this book already added to your wishlist");
+    toast.error('this book already added to your wishlist');
   }
   const handleAddToWishList = (bookId: string | undefined) => {
     const options = {
@@ -31,7 +31,7 @@ const BookCard = ({ book }: IProps) => {
         book: bookId,
       },
     };
-    console.log("options", options);
+
     addToWishList(options);
   };
 

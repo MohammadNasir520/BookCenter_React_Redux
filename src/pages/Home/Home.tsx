@@ -1,18 +1,16 @@
-import { Link } from "react-router-dom";
-import { useGetBooksQuery } from "../../Redux/api/booksApi/booksApi";
-import BookCard from "../../components/BookCard";
-import { IBook } from "../../globalInterfaces/book.interface";
-import FullPageSpinner from "../../shared/FullPageSpinner";
+import { Link } from 'react-router-dom';
+import { useGetBooksQuery } from '../../Redux/api/booksApi/booksApi';
+import BookCard from '../../components/BookCard';
+import { IBook } from '../../globalInterfaces/book.interface';
+import FullPageSpinner from '../../shared/FullPageSpinner';
 
-import Error from "../Error/Error";
+import Error from '../Error/Error';
 
 const Home = () => {
   const { data, error, isLoading, isError } = useGetBooksQuery(null, {
     refetchOnMountOrArgChange: true,
     pollingInterval: 30000,
   });
-
-  console.log(data, error, isLoading);
 
   if (isLoading) {
     return <FullPageSpinner></FullPageSpinner>;
@@ -29,7 +27,7 @@ const Home = () => {
       </div>
 
       {/* see more button */}
-      <Link to={"/allbooks"}>
+      <Link to={'/allbooks'}>
         <button
           className="flex mx-auto my-5 select-none items-center gap-2 rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-gray-800 transition-all hover:bg-gray-500/10 active:bg-gray-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
           type="button"

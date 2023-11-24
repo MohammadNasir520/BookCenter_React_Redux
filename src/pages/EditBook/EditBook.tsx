@@ -1,34 +1,32 @@
-import { toast } from "react-hot-toast";
+import { toast } from 'react-hot-toast';
 import {
   useGetSingleBookQuery,
   useUpdateBookMutation,
-} from "../../Redux/api/booksApi/booksApi";
+} from '../../Redux/api/booksApi/booksApi';
 
-import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
-import { uploadImage } from "../../api/uploadImage";
-import { IBook } from "../../globalInterfaces/book.interface";
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { uploadImage } from '../../api/uploadImage';
+import { IBook } from '../../globalInterfaces/book.interface';
 
 const EditBook = () => {
   const { id } = useParams();
   const [updatedData, setUpdatedData] = useState<Partial<IBook>>({});
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState('');
   const [disable, setDisable] = useState(false);
-  console.log("ud", updatedData);
 
   const { data: book } = useGetSingleBookQuery(id);
 
   const [updateBook, { data, isLoading, isError, isSuccess, error }] =
     useUpdateBookMutation();
-  console.log(data, isLoading, isError, isSuccess, error);
+
   const navigate = useNavigate();
 
   const handleImageUpload = (event: any) => {
     setDisable(true);
     const form = event.target;
     const image = form.files[0];
-    uploadImage(image).then((url) => {
-      console.log(url);
+    uploadImage(image).then(url => {
       if (url) {
         setImage(url);
         setDisable(false);
@@ -43,20 +41,18 @@ const EditBook = () => {
       id: id,
       data: updatedData,
     };
-    console.log("options", options);
 
     if (image) {
       options.data.image = image;
     }
 
-    console.log(options);
     updateBook(options);
   };
   if (isSuccess) {
-    toast.success("your book is updated");
-    navigate("/");
+    toast.success('your book is updated');
+    navigate('/');
   }
-  console.log(image);
+
   return (
     <div>
       <div className="bg-gray-100 py-2 flex flex-col justify-center sm:py-12">
@@ -77,7 +73,7 @@ const EditBook = () => {
                         Book Title
                       </label>
                       <input
-                        onChange={(event) =>
+                        onChange={event =>
                           setUpdatedData({
                             ...updatedData,
                             title: event.target.value,
@@ -93,7 +89,7 @@ const EditBook = () => {
                     <div className="flex flex-col">
                       <label className="leading-loose">Book Author</label>
                       <input
-                        onChange={(event) =>
+                        onChange={event =>
                           setUpdatedData({
                             ...updatedData,
                             author: event.target.value,
@@ -112,7 +108,7 @@ const EditBook = () => {
                         <label className="leading-loose">Genre</label>
                         <div className="relative focus-within:text-gray-600 text-gray-400">
                           <input
-                            onChange={(event) =>
+                            onChange={event =>
                               setUpdatedData({
                                 ...updatedData,
                                 genre: event.target.value,
@@ -133,7 +129,7 @@ const EditBook = () => {
                         </label>
                         <div className="relative focus-within:text-gray-600 text-gray-400">
                           <input
-                            onChange={(event) =>
+                            onChange={event =>
                               setUpdatedData({
                                 ...updatedData,
                                 publicationDate: event.target.value,
@@ -210,10 +206,10 @@ const EditBook = () => {
                     >
                       <>
                         {isLoading
-                          ? "uploading"
+                          ? 'uploading'
                           : isSuccess
-                          ? "updated"
-                          : "update"}
+                          ? 'updated'
+                          : 'update'}
                       </>
                     </button>
                   </div>

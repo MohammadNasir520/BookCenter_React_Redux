@@ -5,7 +5,7 @@
 // import { Typography } from "@material-tailwind/react";
 
 // const ProductDetailsCard = ({ product }) => {
-//     console.log(product)
+//
 
 //     const { name, image, category, price, status, rating, description, keyFeature } = product
 //     const { data: reviews } = useGetAllReviewsQuery(null);
@@ -132,10 +132,10 @@
 
 // export const getStaticProps = async (context) => {
 //     const { params } = context
-//     console.log(params?.productId)
+//
 //     const res = await fetch(`https://pc-builder-backend-omega.vercel.app/api/v1/products/${params?.productId}`)
 //     const data = await res.json()
-//     console.log(data)
+//
 //     return {
 //         props: {
 //             product: data?.data

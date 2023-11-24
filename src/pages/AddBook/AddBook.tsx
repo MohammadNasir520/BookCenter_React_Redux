@@ -1,8 +1,8 @@
-import { toast } from "react-hot-toast";
-import { useAddBookMutation } from "../../Redux/api/booksApi/booksApi";
-import { uploadImage } from "../../api/uploadImage";
-import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../Redux/hook";
+import { toast } from 'react-hot-toast';
+import { useAddBookMutation } from '../../Redux/api/booksApi/booksApi';
+import { uploadImage } from '../../api/uploadImage';
+import { useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../../Redux/hook';
 
 interface ErrorResponse {
   data: {
@@ -11,11 +11,10 @@ interface ErrorResponse {
 }
 
 const AddBook = () => {
-  const userId = useAppSelector((state) => state?.user?.user?._id);
+  const userId = useAppSelector(state => state?.user?.user?._id);
 
   const [addBook, { data, isLoading, isError, isSuccess, error }] =
     useAddBookMutation();
-  console.log(data, isLoading, isError, isSuccess, error);
 
   if (isError) {
     toast.error(`${(error as ErrorResponse)?.data?.errorMessages[0]?.message}`);
@@ -30,8 +29,7 @@ const AddBook = () => {
     const year = form.year.value;
     const image = form.image.files[0];
 
-    uploadImage(image).then((url) => {
-      console.log(url);
+    uploadImage(image).then(url => {
       if (url) {
         const options = {
           data: {
@@ -48,8 +46,8 @@ const AddBook = () => {
     });
   };
   if (isSuccess) {
-    toast.success("your book is uploaded");
-    navigate("/");
+    toast.success('your book is uploaded');
+    navigate('/');
   }
   return (
     <div>
@@ -178,10 +176,10 @@ const AddBook = () => {
                     <button className="bg-blue-500 disabled:bg-blue-300 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none">
                       <>
                         {isLoading
-                          ? "uploading"
+                          ? 'uploading'
                           : isSuccess
-                          ? "uploaded"
-                          : "upload"}
+                          ? 'uploaded'
+                          : 'upload'}
                       </>
                     </button>
                   </div>

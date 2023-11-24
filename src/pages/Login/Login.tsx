@@ -37,7 +37,6 @@ const Login = () => {
       },
     };
     const loggedInData: any = await login(options);
-    console.log('logindata', loggedInData?.data?.data);
 
     if (loggedInData?.data?.success === true) {
       form.reset();
