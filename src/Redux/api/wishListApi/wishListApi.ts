@@ -1,32 +1,33 @@
-import { api } from "../apiSlice";
+import { api } from '../apiSlice';
 
 const usersApi = api.injectEndpoints({
-  endpoints: (builder) => ({
+  endpoints: builder => ({
     addToWishList: builder.mutation({
       query: ({ wishListData }) => ({
         url: `/wishlists/create-wishlist`,
-        method: "POST",
+        method: 'POST',
         body: wishListData,
       }),
     }),
     addReadingList: builder.mutation({
       query: ({ id, wishListUpdatedData }) => ({
         url: `/wishlists/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: wishListUpdatedData,
       }),
-      invalidatesTags: ["addToReadList"],
+      invalidatesTags: ['wishlist'],
     }),
     removeFromWishList: builder.mutation({
-      query: (id) => ({
+      query: id => ({
         url: `/wishlists/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
       }),
+      invalidatesTags: ['wishlist'],
     }),
 
     getAllWishLists: builder.query({
       query: ({ id, status }) => `/wishlists/${id}?status=${status}`,
-      providesTags: ["addToReadList"],
+      providesTags: ['wishlist'],
     }),
   }),
 });
