@@ -13,7 +13,7 @@ interface ErrorResponse {
 
 const Login = () => {
   const [login, { error }] = useLoginMutation();
-  console.log(error);
+
   if (error) {
     toast.error(`${(error as ErrorResponse)?.data?.message}`);
   }
@@ -21,7 +21,7 @@ const Login = () => {
   const dispatch = useAppDispatch();
 
   const location = useLocation();
-  // console.log(location);
+
   const form = location.state.pathname || '/';
 
   const handleLogin = async (event: any) => {
