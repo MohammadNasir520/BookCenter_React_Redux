@@ -36,10 +36,9 @@ const BookDetailsCard = () => {
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
 
-  const { data, error, isLoading } = useGetSingleBookQuery(id);
+  const { data } = useGetSingleBookQuery(id);
 
-  const [deleteBook, { data: deleteData, isError, isSuccess }] =
-    useDeleteBookMutation();
+  const [deleteBook, { data: deleteData }] = useDeleteBookMutation();
 
   const handleDelete = () => {
     deleteBook(id);

@@ -17,8 +17,7 @@ const EditBook = () => {
 
   const { data: book } = useGetSingleBookQuery(id);
 
-  const [updateBook, { data, isLoading, isError, isSuccess, error }] =
-    useUpdateBookMutation();
+  const [updateBook, { isLoading, isSuccess }] = useUpdateBookMutation();
 
   const navigate = useNavigate();
 

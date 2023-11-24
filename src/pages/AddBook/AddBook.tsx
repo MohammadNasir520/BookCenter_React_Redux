@@ -13,7 +13,7 @@ interface ErrorResponse {
 const AddBook = () => {
   const userId = useAppSelector(state => state?.user?.user?._id);
 
-  const [addBook, { data, isLoading, isError, isSuccess, error }] =
+  const [addBook, { isLoading, isError, isSuccess, error }] =
     useAddBookMutation();
 
   if (isError) {

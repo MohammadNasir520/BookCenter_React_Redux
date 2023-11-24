@@ -89,12 +89,9 @@ const WishList = () => {
     action = handleUndo;
   }
 
-  const { data: wishLists, error: wishError } = useGetAllWishListsQuery(
-    options,
-    {
-      refetchOnMountOrArgChange: true,
-    }
-  );
+  const { data: wishLists } = useGetAllWishListsQuery(options, {
+    refetchOnMountOrArgChange: true,
+  });
 
   return (
     <div>

@@ -7,7 +7,7 @@ import FullPageSpinner from '../../shared/FullPageSpinner';
 import Error from '../Error/Error';
 
 const Home = () => {
-  const { data, error, isLoading, isError } = useGetBooksQuery(null, {
+  const { data, isLoading, isError } = useGetBooksQuery(null, {
     refetchOnMountOrArgChange: true,
     pollingInterval: 30000,
   });

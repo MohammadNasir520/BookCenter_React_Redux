@@ -16,7 +16,7 @@ const ReviewsSection = () => {
 
   const { data: reviews } = useGetSingleReviewQuery(id);
 
-  const [postBookComment, { data }] = usePostBookReviewMutation();
+  const [postBookComment] = usePostBookReviewMutation();
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();

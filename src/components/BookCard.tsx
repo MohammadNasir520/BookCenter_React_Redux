@@ -13,10 +13,8 @@ const BookCard = ({ book }: IProps) => {
 
   const userId = useAppSelector(state => state.user.user?._id);
 
-  const [
-    addToWishList,
-    { data, isLoading, isError, isSuccess, error: addWishError },
-  ] = useAddToWishListMutation();
+  const [addToWishList, { isSuccess, error: addWishError }] =
+    useAddToWishListMutation();
 
   if (isSuccess) {
     toast.success('added to wishlist');

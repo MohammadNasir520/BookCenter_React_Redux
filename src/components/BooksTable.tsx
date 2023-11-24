@@ -24,8 +24,7 @@ interface BooksTableProps {
 }
 
 const BooksTable = ({ button, wishLists, action }: BooksTableProps) => {
-  const [removeFromWishList, { data, error, isSuccess }] =
-    useRemoveFromWishListMutation();
+  const [removeFromWishList, { data }] = useRemoveFromWishListMutation();
   if (data?.success) {
     toast.success('your book is deleted from wishList');
   }
